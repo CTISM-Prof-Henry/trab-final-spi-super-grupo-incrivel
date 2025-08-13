@@ -3,7 +3,7 @@
 
 Descrição curta do repositório.
 
-## Sumário
+## Sumário-teste
 
 * [Pré-requisitos](#pré-requisitos)
 * [Instalação](#instalação)
