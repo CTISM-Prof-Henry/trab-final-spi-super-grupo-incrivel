@@ -1,0 +1,81 @@
+graph TB
+%% -------------------- LOGÍSTICO --------------------
+    subgraph Logístico
+        l1["1 - Fazer o diagrama de casos de uso"]
+        l2["2 - Fazer o modelo ER"]
+        l3["3 - Fazer o termo de abertura do projeto"]
+        l4["4 - Fazer o README para o github"]
+        l5["5 - Criar a estrutura inicial de pastas do projeto"]
+        l6["6 - Fazer o prototipo da  tela inicial"]
+        l7["7 - Fazer o prototipo da  tela especifica de cada sala"]
+        l8["8 - Fazer o prototipo da tela de notificacoes"]
+        l9["9 - Mapear todas as salas do poli"]
+        l10["10 - Fazer o protótipo da pagina de login"]
+
+    %% dependências logístico
+        l2 --> l5
+    end
+
+%% -------------------- BACKEND --------------------
+    subgraph BackEnd
+        b11["11 - Fazer o backend do filtro"]
+        b12["12 - Fazer o backend da busca por salas"]
+        b13["13 - Fazer o backend da fila de agendamento"]
+        b14["14 - Fazer o backend do calendario de cada sala"]
+        b15["15 - Criar um banco de dados que simula o sistema do politecnico."]
+        b16["16 - Fazer o backend da pagina de notificacoes, avisando o usuario caso alguma alteracao ocorra nas salas que ele tem interesse em agendar"]
+        b17["17 - Criar diferentes niveis de permissao entre usuarios"]
+        b18["18 - Criar sistemas de login diferentes baseado em nivel de permissao do usuario"]
+        b19["19 - Criar um sistema que permite administradores analisarem e permitirem agendamentos de alunos"]
+        b20["20 - Testar os endpoints"]
+
+    %% dependências backend
+        l5 --> b11
+        l5 --> b12
+        l9 --> b12
+        l5 --> b13
+        l5 --> b14
+        l5 --> b16
+        b13 --> b16
+        b14 --> b16
+        l5 --> b17
+        l5 --> b18
+        b17 --> b18
+        b18 --> b16
+        l5 --> b19
+        b17 --> b19
+        b18 --> b19
+        b15 -->b18
+
+
+    %% 20 depende de TODO o BackEnd (11..19)
+        b11 --> b20
+        b12 --> b20
+        b13 --> b20
+        b14 --> b20
+        b16 --> b20
+        b17 --> b20
+        b18 --> b20
+        b19 --> b20
+    end
+
+%% -------------------- FRONTEND --------------------
+    subgraph FrontEnd
+        f21["21 - Fazer o front end da tela inicial"]
+        f22["22 - Fazer o front end da tela  especifica de cada sala"]
+        f23["23 - Fazer o front end da tela  de notificacao"]
+        f24["24 - Fazer o front end da tela de login/cadastro"]
+        f25["25 - Fazer o mecanismo de alteracao de modo claro para modo escuro"]
+
+    %% dependências frontend
+        l6 --> f21
+        l7 --> f22
+        l8 --> f23
+        l10 --> f24
+
+    %% 25 depende de TODO o FrontEnd (21..24)
+        f21 --> f25
+        f22 --> f25
+        f23 --> f25
+        f24 --> f25
+    end

@@ -1,0 +1,2 @@
+Aqui voce vai colocar html, css e javascript apenas relacioanda a tela de visualizacao de sala
+(Apague-me quando comecar a trabalhar aqui)

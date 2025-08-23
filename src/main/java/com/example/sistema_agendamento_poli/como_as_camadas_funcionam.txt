@@ -1,0 +1,17 @@
+model: representa as tabelas do banco
+
+repository: busca os dados do banco usando os models
+
+service: executa a lógica do sistema
+
+mapper: converte entre model e dto (vai e volta)
+
+dto: estrutura de dados que o controller usa pra enviar/receber info
+
+controller: recebe a requisição, chama o service e retorna o dto
+
+Representacao visual:
+
+    model → repository → service → dto → controller
+      ↑                             ↓
+      ----(↩ mapper traduz dados)----
