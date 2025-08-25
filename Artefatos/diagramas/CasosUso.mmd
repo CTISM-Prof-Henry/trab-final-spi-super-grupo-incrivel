@@ -1,0 +1,65 @@
+graph TD
+
+%% -------------------- Atores --------------------
+    subgraph  Atores
+        Usuario((Usuário))
+        Admin((Administrador))
+        Professor((Professor))
+        Aluno((Aluno))
+        Admin --> Usuario
+        Professor --> Usuario
+        Aluno --> Usuario
+    end
+
+%% -------------------- Tela inicial e navegação --------------------
+    subgraph  Tela Inicial
+        inicial[tela inicial]
+        login[tela de login]
+        salas[tela de salas]
+        visualizar_mapa[Visualizar mapa do Politécnico]
+        aplicar_filtros[Aplicar filtros de busca]
+        inicial --> login
+        inicial --> salas
+        inicial --> visualizar_mapa
+        inicial --> aplicar_filtros
+        Usuario --> inicial
+    end
+
+%% -------------------- Busca e visualização --------------------
+    subgraph  Busca e Visualização de Salas
+        buscar_sala[Buscar sala por nome ou código]
+        visualizar_sala[Visualizar página de uma sala]
+        ver_calendario[Ver calendário da sala]
+        entrar_fila[Entrar na fila de espera]
+        inicial --> buscar_sala
+        buscar_sala --> visualizar_sala
+        visualizar_sala --> ver_calendario
+        visualizar_sala --> entrar_fila
+    end
+
+%% -------------------- Agendamento --------------------
+    subgraph  Agendamento e Permissões
+        agendar[Agendar uma sala]
+        pedir_agendamento[Pedir agendamento]
+        analisar[Analisar pedido]
+        Professor --> agendar
+        Admin --> agendar
+        Aluno --> pedir_agendamento
+        pedir_agendamento --> agendar
+        pedir_agendamento --> analisar
+        Admin --> analisar
+    end
+
+%% -------------------- Notificações --------------------
+    subgraph  Notificações
+        notificacoes[tela de notificações]
+        receber_notificacoes[Receber notificações de eventos de interesse]
+        login --> notificacoes
+        notificacoes --> receber_notificacoes
+    end
+
+%% -------------------- Preferência de usuário --------------------
+    subgraph  Preferências
+        alternar_tema[Alternar entre tema claro e escuro]
+        Usuario --> alternar_tema
+    end
