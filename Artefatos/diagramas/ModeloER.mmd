@@ -1,57 +1,47 @@
 erDiagram
-    USUARIO ||--o{ PEDIDO_AGENDA : solicita
-    USUARIO ||--o{ AGENDA : reserva
-    SALA ||--o{ PEDIDO_AGENDA : para
-    SALA ||--o{ AGENDA : possui
     USUARIO {
-        int id PK
-        string tipo "ALUNO|PROF|ADMIN"
-        string identificador "matricula/contrato"
-        string nome
-        string email
-        string senha
-    }
-    SALA {
-        int id PK
-        string bloco
-        string n_sala
-        int andar
-    }
-    PEDIDO_AGENDA {
-        int id PK
-        int sala_id FK
-        int usuario_id FK
-        timestamptz start_at
-        timestamptz end_at
-        string status "PENDENTE|APROVADO|RECUSADO|CANCELADO"
-    }
-    AGENDA {
-        int id PK
-        int sala_id FK
-        int usuario_id FK
-        timestamptz start_at
-        timestamptz end_at
-        string status "ATIVO|CANCELADO"
-        int criado_por FK
-        timestamptz created_at
-        int cancelado_por FK "USUARIO.id (opcional)"
-        timestamptz cancelado_em "opcional"
+        INT id PK
+        STRING nome
+        STRING telefone
+        STRING email
+        STRING identificador "Matrícula ou Contrato"
+        STRING senha
+        STRING tipo "Aluno | Professor | Administrador"
     }
 
-%%    ALERTA_DISPONIBILIDADE {
-%%      int id PK
-%%        int usuario_id FK
-%%         int sala_id FK
-%%        timestamptz start_at
-%%         timestamptz end_at
-%%        boolean ativo
-%%    }
-%%    NOTIFICACAO {
-%%       int id PK
-%%         int usuario_id FK
-%%       text mensagem
-%%        boolean lida
-%%         timestamptz created_at
-%%       int ref_alerta_id FK "opcional"
-%%       int ref_agenda_id FK "opcional"
-%%   }
+    BLOCO {
+        INT id PK
+        STRING nome
+        INT quantidade_salas
+    }
+
+    SALA {
+        INT id PK
+        STRING codigo
+        STRING nome
+        INT andar
+        INT bloco_id FK
+    }
+
+    AGENDA {
+        INT id PK
+        DATE data
+        TIME horario_inicio
+        TIME horario_fim
+        STRING status "Disponível | Ocupado"
+        INT sala_id FK
+        INT usuario_id FK
+    }
+
+    NOTIFICACAO {
+        INT id PK
+        STRING mensagem
+        INT usuario_id FK
+        INT agenda_id FK
+    }
+
+    BLOCO ||--o{ SALA : "contém"
+    SALA  ||--o{ AGENDA : "possui"
+    USUARIO ||--o{ AGENDA : "realiza"
+    AGENDA ||--o{ NOTIFICACAO : "gera"
+    USUARIO ||--o{ NOTIFICACAO : "recebe"

@@ -1,0 +1,2 @@
+Aqui voce vai colocar todos os arquivos java que envolvam a entidade "notificacao"
+(Apague-me quando comecar a trabalhar aqui)
