@@ -75,6 +75,55 @@
         <div class="filtro mt-2">
 
             <h2>Salas Agendadas</h2>
+            <!-- Adicione dentro do <div class="container"> ou onde preferir -->
+            <div class="d-flex justify-content-center align-items-center mt-4">
+                <div class="bg-white border rounded shadow p-4" style="width: 700px; min-height: 200px;">
+                    <form>
+                        <div class="row g-2">
+                            <div class="col">
+                                <label for="codigo" class="form-label fw-bold">Código</label>
+                                <input type="text" class="form-control form-control-sm" id="codigo"
+                                    placeholder="Digite o código">
+                            </div>
+
+                            <div class="col">
+                                <label for="de" class="form-label fw-bold">De</label>
+                                <input type="time" class="form-control form-control-sm" id="de">
+                            </div>
+                            <div class="col">
+                                <label for="ate" class="form-label fw-bold">Até</label>
+                                <input type="time" class="form-control form-control-sm" id="ate">
+                            </div>
+
+                            <div class="row g-2">
+                                <div class="col">
+                                    <label for="bloco" class="form-label fw-bold">Bloco</label>
+                                    <input type="text" class="form-control form-control-sm" id="bloco"
+                                        placeholder="Digite o bloco">
+                                </div>
+                                <div class="col">
+                                    <label for="status" class="form-label fw-bold">Status</label>
+                                    <select class="form-select form-select-sm" id="status">
+                                        <option value="">Selecione</option>
+                                        <option value="agendado">Agendado</option>
+                                        <option value="livre">Livre</option>
+                                        <option value="ocupado">Ocupado</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <div class="col-12">
+                                        <label for="pesquisa" class="form-label fw-bold">Pesquisar</label>
+                                        <input type="text" class="form-control form-control-sm" id="pesquisa"
+                                            placeholder="Digite para pesquisar...">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Salvar</button>
+                    </form>
+                </div>
+            </div>
 
 
         </div>
