@@ -4,10 +4,14 @@
 }
 
 .cinza{
-    background-color: #e7eaed;
+    background-color: w#e7eaed;
 }
 
 .bg-azul{
     background-color: #5893be;
 }
 
+
+.tiraEfeitoLink{
+    text-decoration: none;
+}
