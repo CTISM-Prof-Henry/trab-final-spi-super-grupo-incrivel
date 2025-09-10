@@ -9,7 +9,7 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
 
-    private final   UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @Autowired
     public UsuarioService(UsuarioRepository usuarioRepository) {
@@ -53,7 +53,6 @@ public class UsuarioService {
         }else{
             throw new RuntimeException("O usuaário não existe para o id: "+id);
         }
-
 
         }
 
