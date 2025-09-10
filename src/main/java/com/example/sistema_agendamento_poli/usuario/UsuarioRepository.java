@@ -3,6 +3,7 @@ package com.example.sistema_agendamento_poli.usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -27,4 +28,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     // Busca por email ou identificador
     // Retorna o usuario que casar com email ou identificador (login flexivel)
     Optional<Usuario> findByEmailOrIdentificador(String email, String identificador);
+
+    List<Usuario> id(Long id);
+
 }
