@@ -9,6 +9,14 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../estilo/style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libertinus+Keyboard&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libertinus+Keyboard&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
 </head>
 
 <body class="bg-light d-flex flex-column min-vh-100">
@@ -21,7 +29,12 @@
         <div class="container-fluid ">
 
             <!-- mudar a fonte? -->
-            <a class="navbar-brand fs-3 fw-bold text-white" href="#">UFSM</a>
+
+            
+            <a class="navbar-brand fs-3 fw-bold text-white libertinusKeyboardRegular" href="#">UFSM</a>
+            <!-- corrigir o logo e verificar algumas fontes -->
+            <!-- <a class="navbar-brand fs-4 fw-bold text-white permanentMarkerRegular" href="#">Colégio Politécnico</a> --> 
+
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -59,8 +72,9 @@
                         </ul>
                     </li>
                 </ul>
-                <a href="#" class="tiraEfeitoLink"><span class="me-2 navbar-text ms-auto fw-semibold text-white ">Olá, Usuário</span></a>
-                
+                <a href="#" class="tiraEfeitoLink"><span class="me-2 navbar-text ms-auto fw-semibold text-white ">Olá,
+                        Usuário</span></a>
+
 
                 <img class="" src="../images/icons8-lembrete-de-compromissos-24.png" alt="">
 
@@ -84,23 +98,26 @@
             <!-- quadrado do filtro -->
             <!-- "SIIIIIIIIIIIIIIIIII" - Cristiano Ronaldo -->
             <div class="row justify-content-center">
-                <h6 class=" mt-1 col-12 col-md-12 col-lg-12 bg-azul border rounded shadow p-2 text-white fw-bold">Filtros</h6>
+                <h6 class=" mt-1 col-12 col-md-12 col-lg-12 bg-azul border rounded shadow p-2 text-white fw-bold">
+                    Filtros</h6>
                 <div class="col-12 col-md-12 col-lg-12 bg-white border rounded shadow p-4">
                     <form>
                         <div class="row g-2">
                             <div class="col">
-                                <label for="codigo" class="form-label fw-bold">Código</label>
+                                <label for="codigo" class="form-label fw-bold ">Código</label>
                                 <input type="text" class="form-control form-control-sm" id="codigo"
                                     placeholder="Digite o código">
                             </div>
 
                             <div class="col">
-                                <label for="de" class="form-label fw-bold">De</label>
-                                <input type="time" class="form-control form-control-sm" id="de">
+                                <label for="de" class="form-label fw-bold ">De</label>
+                                <input type="time" class="form-control form-control-sm libertinusKeyboardRegular fs-5"
+                                    id="de">
                             </div>
                             <div class="col">
                                 <label for="ate" class="form-label fw-bold">Até</label>
-                                <input type="time" class="form-control form-control-sm" id="ate">
+                                <input type="time" class="form-control form-control-sm libertinusKeyboardRegular fs-5"
+                                    id="ate">
                             </div>
 
                             <div class="row g-2">
@@ -136,7 +153,8 @@
 
             <div class="row justify-content-center">
 
-                <h6 class=" mt-5 col-12 col-md-12 col-lg-12 bg-azul border rounded shadow p-2 text-white fw-bold">Lista de Salas
+                <h6 class=" mt-5 col-12 col-md-12 col-lg-12 bg-azul border rounded shadow p-2 text-white fw-bold">Lista
+                    de Salas
                 </h6>
                 <div class="col-12 col-md-12 col-lg-12 bg-white border rounded shadow p-4">
                     <table class="table table-striped table-hover table-bordered">

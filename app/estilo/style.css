@@ -15,3 +15,16 @@
 .tiraEfeitoLink{
     text-decoration: none;
 }
+
+.libertinusKeyboardRegular {
+    font-family: "Libertinus Keyboard", system-ui;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .permanentMarkerRegular {
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
