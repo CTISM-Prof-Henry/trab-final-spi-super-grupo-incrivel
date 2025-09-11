@@ -39,16 +39,19 @@ graph TD
 
 %% -------------------- Agendamento --------------------
     subgraph  Agendamento e Permissões
-        agendar[Agendar uma sala]
         pedir_agendamento[Pedir agendamento]
-        analisar[Analisar pedido]
-        Professor --> agendar
-        Admin --> agendar
+        analisar[Analisar pedido de agendamento]
+        aprovar_pedido[Aprovar pedido]
+        agendar[Agendar sala]
+
         Aluno --> pedir_agendamento
-        pedir_agendamento --> agendar
-        pedir_agendamento --> analisar
         Admin --> analisar
+        analisar --> aprovar_pedido
+        aprovar_pedido --> agendar
+        agendar --> Usuario
+        Professor --> agendar
     end
+
 
 %% -------------------- Notificações --------------------
     subgraph  Notificações
