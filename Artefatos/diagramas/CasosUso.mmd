@@ -30,28 +30,27 @@ graph TD
         buscar_sala[Buscar sala por nome ou código]
         visualizar_sala[Visualizar página de uma sala]
         ver_calendario[Ver calendário da sala]
-        entrar_fila[Entrar na fila de espera]
         inicial --> buscar_sala
         buscar_sala --> visualizar_sala
         visualizar_sala --> ver_calendario
-        visualizar_sala --> entrar_fila
     end
 
 %% -------------------- Agendamento --------------------
     subgraph  Agendamento e Permissões
         pedir_agendamento[Pedir agendamento]
-        analisar[Analisar pedido de agendamento]
+        decisao_analisar{Analisar pedido}
         aprovar_pedido[Aprovar pedido]
+        rejeitar_pedido[Rejeitar pedido]
         agendar[Agendar sala]
 
         Aluno --> pedir_agendamento
-        Admin --> analisar
-        analisar --> aprovar_pedido
+        Admin --> decisao_analisar
+        decisao_analisar --> aprovar_pedido
+        decisao_analisar --> rejeitar_pedido
         aprovar_pedido --> agendar
-        agendar --> Usuario
         Professor --> agendar
+        Admin --> agendar
     end
-
 
 %% -------------------- Notificações --------------------
     subgraph  Notificações
