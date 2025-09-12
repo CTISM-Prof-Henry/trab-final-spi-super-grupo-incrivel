@@ -32,7 +32,7 @@ public class UsuarioService {
         return usuarioRepository.findByIdentificador(identificador);
     }
 
-    public Usuario atualizarUsuario(Long id,Usuario usuarioAtualizado) {
+    public Usuario atualizarUsuario(Long id, Usuario usuarioAtualizado) {
         return usuarioRepository.findById(id).map(usuario -> {
 
             usuario.setNome(usuario.getNome());
