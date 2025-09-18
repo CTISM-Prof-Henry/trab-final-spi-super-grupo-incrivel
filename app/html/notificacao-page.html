@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sistema de Agendamentos - Página Inicial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../estilo/style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libertinus+Keyboard&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libertinus+Keyboard&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+        </script>
+
+    <nav class="navbar navbar-expand-lg bg-azul">
+
+        <div class="container-fluid ">
+
+            <!-- mudar a fonte? -->
+
+            
+            <a class="navbar-brand fs-3 fw-bold text-white libertinusKeyboardRegular" href="#">UFSM</a>
+            <!-- corrigir o logo e verificar algumas fontes -->
+            <!-- <a class="navbar-brand fs-4 fw-bold text-white permanentMarkerRegular" href="#">Colégio Politécnico</a> --> 
+
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <!-- Deixar ativo? Verificar depois -->
+                    <li class="nav-item me-3">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Salas</a>
+                    </li>
+
+                    <li class="nav-item me-3">
+                        <a class="nav-link text-white" href="#">Agendar</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link text-white" href="#">Buscar</a>
+                    </li>
+
+                    <!-- Está em dropdown, verificar se podemos fazer alguma coisa com ele -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white me-3" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Meus Agendamentos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item text-dark" href="#">Item 1</a></li>
+                            <li><a class="dropdown-item text-dark" href="#">Item 2</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-dark" href="#">Item 3</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a href="#" class="tiraEfeitoLink"><span class="me-2 navbar-text ms-auto fw-semibold text-white ">Olá,
+                        Usuário</span></a>
+
+
+                <img class="" src="../images/icons8-lembrete-de-compromissos-24.png" alt="">
+
+                </ul>
+
+            </div>
+        </div>
+
+    </nav>
+
+    <div class="container">
+
+        <div class="mt-2">
+
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <h2 class="mt-2 text-start">Minhas Notificações</h2>
+                </div>
+            </div>
+
+
+            <!-- fim do quadrado do filtro. Mas a história ainda não acabou... -->
+
+            <div class="row justify-content-center">
+
+                <h6 class=" mt-5 col-12 col-md-12 col-lg-12 bg-azul border rounded shadow p-2 text-white fw-bold ">Lista
+                    de Salas
+                </h6>
+                <div class="col-12 col-md-12 col-lg-12 bg-white border rounded shadow p-4">
+                    <table class="table table-striped table-hover ">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 10%;">Data</th>
+                                <th scope="col" style="width: 30%;">Título</th>
+                                <th scope="col" style="width: 50%;">Descrição</th>
+                                <th scope="col" style="width: 4%;" class="text-center">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>01/05/2023</td>
+                                <td>Titulo genérico</td>
+                                <td>Aula de Filosofia</td>
+                                <td class="text-center"><a href="#"><img src="../images/icons8-lixeira-24.png" alt=""></a></td>
+                            </tr>
+                            <tr>
+                                <td>02/05/2023</td>
+                                <td>Soneca</td>
+                                <td>Aula de Francês</td>
+                                <td class="text-center"><a href="#"><img src="../images/icons8-lixeira-24.png" alt=""></a></td>
+
+                            </tr>
+                            <tr>
+                                <td>03/05/2023</td>
+                                <td>Hora da Estrela</td>
+                                <td>Aula de Surf</td>
+                                <td class="text-center"><a href="#"><img src="../images/icons8-lixeira-24.png" alt=""></a></td>
+
+                            </tr>
+                            <tr>
+                                <td>04/05/2023</td>
+                                <td>Sucumbir a loucura</td>
+                                <td>Aula de Pirotecnia</td>
+                                <td class="text-center"><a href="#"><img src="../images/icons8-lixeira-24.png" alt=""></a></td>
+
+                            </tr>
+                            <tr>
+                                <td>05/05/2023</td>
+                                <td>Dor de cabeça</td>
+                                <td>Aula de Gastronomia</td>
+                                <td class="text-center"><a href="#"><img src="../images/icons8-lixeira-24.png" alt=""></a></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
