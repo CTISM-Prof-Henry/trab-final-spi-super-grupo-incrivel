@@ -1,27 +1,2 @@
 Aqui a logica eh um pouco mais complicada
 Essencialmente, aqui vao todos os arquivos que interagem com 2 ou mais entidades do banco de dados
-Aqui tem a explicacao de todos os arquivos nessa pasta:
-
-model/Usuario.java:
-    Model compartilhado, usado em vários contextos (agenda, pedido, segurança).
-    Colocar aqui evita duplicação e centraliza a definição do usuário.
-
-enums/
-    TipoUsuario.java → enum com os tipos ALUNO, PROF, ADMIN.
-
-    StatusPedido.java → enum com os status do pedido: PENDENTE, APROVADO, etc.
-
-    StatusAgenda.java → enum com os status da agenda: ATIVO, CANCELADO.
-
-    Evitam erros de string solta, ajudam na validação e deixam o código mais legível.
-
-core/exception/
-    PermissaoNegadaException.java → lançada quando alguém tenta algo que não pode.
-
-    SalaIndisponivelException.java → lançada se a sala já está ocupada no horário.
-
-    São erros de regra de negócio, deixam o sistema mais claro e fácil de debugar.
-
-util/HorarioUtils.java
-    Funções auxiliares pra comparar horários, validar conflitos, etc.
-    Evita repetir lógica em vários services e centraliza regras de tempo.

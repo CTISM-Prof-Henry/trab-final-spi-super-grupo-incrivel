@@ -1,2 +1,0 @@
-Aqui voce vai colocar todos os arquivos java que envolvam a entidade "agenda"
-(Apague-me quando comecar a trabalhar aqui)
