@@ -4,7 +4,7 @@
 }
 
 .cinza{
-    background-color: w#e7eaed;
+    background-color:#e7eaed;
 }
 
 .bg-azul{
@@ -29,6 +29,11 @@
   }
 
   .outro-cinza{
-    background-color: #f3f3f3;
+    background-color: #e5e5e5;
   }
   
+  .corBorda{
+    border: 1px solid; 
+  }
+
+ 
