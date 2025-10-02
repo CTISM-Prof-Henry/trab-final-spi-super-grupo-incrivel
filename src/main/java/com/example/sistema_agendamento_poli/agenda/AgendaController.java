@@ -43,16 +43,19 @@ public class AgendaController {
         this.agendaService.deletarAgenda(id);
     }
 
+    // retorna a agenda diaria de uma sala especifica em uma data
     @GetMapping("/calendario/{salaId}/{data}")
     public List<Agenda> calendarioDiarioSala(@PathVariable Long salaId, @PathVariable Date data) {
         return this.agendaService.calendarioDiarioSala(salaId, data);
     }
 
+    // retorna as reservas feitas por um usuario especifico
     @GetMapping("/minhas-reservas/{usuarioId}")
     public Page<Agenda> minhasReservas(@PathVariable Long usuarioId, Pageable pageable) {
         return this.agendaService.minhasReservas(usuarioId, pageable);
     }
 
+    // retorna a agenda de uma sala dentro de um intervalo de datas
     @GetMapping("/visao-intervalo/{salaId}/{dataInicio}/{dataFim}")
     public List<Agenda> visaoIntervalo(
             @PathVariable Long salaId,
