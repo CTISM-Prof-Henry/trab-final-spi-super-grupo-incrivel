@@ -2,52 +2,40 @@ graph TD
 
 %% -------------------- Atores --------------------
     subgraph  Atores
-        Usuario((Usuário))
         Admin((Administrador))
         Professor((Professor))
         Aluno((Aluno))
-        Admin --> Usuario
-        Professor --> Usuario
-        Aluno --> Usuario
     end
 
 %% -------------------- Tela inicial e navegação --------------------
     subgraph  Tela Inicial
         inicial[tela inicial]
         login[tela de login]
-        salas[tela de salas]
         visualizar_mapa[Visualizar mapa do Politécnico]
-        aplicar_filtros[Aplicar filtros de busca]
         inicial --> login
-        inicial --> salas
         inicial --> visualizar_mapa
-        inicial --> aplicar_filtros
-        Usuario --> inicial
+        Admin--> inicial
+        Professor--> inicial
+        Aluno--> inicial
     end
 
 %% -------------------- Busca e visualização --------------------
     subgraph  Busca e Visualização de Salas
         buscar_sala[Buscar sala por nome ou código]
-        visualizar_sala[Visualizar página de uma sala]
-        ver_calendario[Ver calendário da sala]
+        visualizar_sala[Visualizar a agenda de uma sala]
         inicial --> buscar_sala
         buscar_sala --> visualizar_sala
-        visualizar_sala --> ver_calendario
+
     end
 
 %% -------------------- Agendamento --------------------
     subgraph  Agendamento e Permissões
         pedir_agendamento[Pedir agendamento]
-        decisao_analisar{Analisar pedido}
-        aprovar_pedido[Aprovar pedido]
-        rejeitar_pedido[Rejeitar pedido]
+        decisao_analisar[Analisar pedido]
         agendar[Agendar sala]
 
         Aluno --> pedir_agendamento
         Admin --> decisao_analisar
-        decisao_analisar --> aprovar_pedido
-        decisao_analisar --> rejeitar_pedido
-        aprovar_pedido --> agendar
         Professor --> agendar
         Admin --> agendar
     end
@@ -55,13 +43,6 @@ graph TD
 %% -------------------- Notificações --------------------
     subgraph  Notificações
         notificacoes[tela de notificações]
-        receber_notificacoes[Receber notificações de eventos de interesse]
         login --> notificacoes
-        notificacoes --> receber_notificacoes
     end
 
-%% -------------------- Preferência de usuário --------------------
-    subgraph  Preferências
-        alternar_tema[Alternar entre tema claro e escuro]
-        Usuario --> alternar_tema
-    end
