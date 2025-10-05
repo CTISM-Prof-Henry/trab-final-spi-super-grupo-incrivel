@@ -25,9 +25,9 @@ public class Bloco {
     private String nome;
 
     // int: quantidade_salas
-    @Column(name = "quantidade_salas", nullable = false)
+    @Column(name = "qt_salas", nullable = false)
     @NonNull
-    private Integer quantidadeSalas;
+    private Integer qt_Salas;
 
     // Relacionamento 1:N com Sala
     @OneToMany(mappedBy = "bloco", cascade = CascadeType.ALL, orphanRemoval = true)

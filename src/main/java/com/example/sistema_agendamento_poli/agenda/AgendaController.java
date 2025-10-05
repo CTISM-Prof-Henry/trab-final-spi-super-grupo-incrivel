@@ -23,7 +23,7 @@ public class AgendaController {
         return this.agendaService.listarAgendas();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("busca/id/{id}")
     public Optional<Agenda> buscar(@PathVariable Long id) {
         return this.agendaService.buscarPorId(id);
     }

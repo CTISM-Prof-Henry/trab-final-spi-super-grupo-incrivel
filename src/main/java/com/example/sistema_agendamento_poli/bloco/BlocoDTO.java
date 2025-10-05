@@ -17,5 +17,5 @@ public class BlocoDTO {
     private String nome;
 
     @NotNull(message = "Quantidade de salas obrigatoria.")
-    private Integer quantidadeSalas;
+    private Integer qt_Salas;
 }

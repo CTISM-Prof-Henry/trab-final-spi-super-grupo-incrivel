@@ -22,7 +22,7 @@ public class NotificacaoController {
     }
 
     // retorna uma notificacao especifica pelo id
-    @GetMapping("/{id}")
+    @GetMapping("busca/id/{id}")
     public Optional<Notificacao> buscarPorId(@PathVariable Long id) {
         return this.notificacaoService.buscarNotificacaoPorId(id);
     }

@@ -18,7 +18,7 @@ public class BlocoController {
         return this.blocoService.listarBlocos();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("busca/id/{id}")
     public Optional<Bloco> buscar(@PathVariable Long id) {
         return this.blocoService.buscarPorId(id);
     }
@@ -33,12 +33,12 @@ public class BlocoController {
         System.out.println(json);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public void atualizar(@RequestBody Bloco bloco, @PathVariable Long id) {
         this.blocoService.atualizarBloco(id, bloco);
     }
 
-    @DeleteMapping
+    @DeleteMapping("{id}")
     public void deletar(@PathVariable Long id){
         this.blocoService.deletarBloco(id);
     }

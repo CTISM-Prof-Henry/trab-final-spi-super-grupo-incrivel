@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/usuarios")
 public class UsuarioController {
 
     private UsuarioService usuarioService;
@@ -17,12 +17,12 @@ public class UsuarioController {
         return this.usuarioService.listarUsuarios();
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/busca/email/{email}")
     public Optional<Usuario> usuario(@PathVariable String email){
         return this.usuarioService.buscarUsuario(email);
     }
 
-    @GetMapping("/{identificador}")
+    @GetMapping("/busca/identificador/{identificador}")
     public Optional<Usuario> usuarioPorIdentificador(@PathVariable String identificador){
         return this.usuarioService.buscarUsuarioPorIdentificador(identificador);
     }
@@ -37,12 +37,12 @@ public class UsuarioController {
         this.usuarioService.criarUsuario(usuario);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public void atualizar(@RequestBody Usuario usuario, @PathVariable Long id){
         this.usuarioService.atualizarUsuario(id, usuario);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id){
         this.usuarioService.deletarUsuario(id);
     }

@@ -35,12 +35,12 @@ public class UsuarioService {
     public Usuario atualizarUsuario(Long id, Usuario usuarioAtualizado) {
         return usuarioRepository.findById(id).map(usuario -> {
 
-            usuario.setNome(usuario.getNome());
-            usuario.setTelefone(usuario.getTelefone());
-            usuario.setEmail(usuario.getEmail());
-            usuario.setSenha(usuario.getSenha());
-            usuario.setTipo(usuario.getTipo());
-            usuario.setIdentificador(usuario.getIdentificador());
+            usuario.setNome(usuarioAtualizado.getNome());
+            usuario.setTelefone(usuarioAtualizado.getTelefone());
+            usuario.setEmail(usuarioAtualizado.getEmail());
+            usuario.setSenha(usuarioAtualizado.getSenha());
+            usuario.setTipo(usuarioAtualizado.getTipo());
+            usuario.setIdentificador(usuarioAtualizado.getIdentificador());
 
             return usuarioRepository.save(usuario);
         }).orElseThrow(() -> new RuntimeException("Usuário não encontrado com o Id: " + id));

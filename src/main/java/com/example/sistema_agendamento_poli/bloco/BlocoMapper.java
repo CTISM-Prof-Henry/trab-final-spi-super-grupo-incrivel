@@ -10,7 +10,7 @@ public class BlocoMapper {
         return BlocoDTO.builder()
                 .id(bloco.getId())
                 .nome(bloco.getNome())
-                .quantidadeSalas(bloco.getQuantidadeSalas())
+                .qt_Salas(bloco.getQt_Salas())
                 .build();
     }
 
@@ -22,7 +22,7 @@ public class BlocoMapper {
         Bloco bloco = new Bloco();
         bloco.setId(dto.getId()); // útil para update
         bloco.setNome(dto.getNome());
-        bloco.setQuantidadeSalas(dto.getQuantidadeSalas());
+        bloco.setQt_Salas(dto.getQt_Salas());
 
         // .setSalas() é ignorado aqui, pois não vem no DTO
         return bloco;

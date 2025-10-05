@@ -35,7 +35,7 @@ public class BlocoService {
         return blocoRepository.findById(id).map(bloco -> {
 
             bloco.setNome(blocoAtualizado.getNome());
-            bloco.setQuantidadeSalas(blocoAtualizado.getQuantidadeSalas());
+            bloco.setQt_Salas(blocoAtualizado.getQt_Salas());
             bloco.setSalas(blocoAtualizado.getSalas());
             return blocoRepository.save(bloco);
 

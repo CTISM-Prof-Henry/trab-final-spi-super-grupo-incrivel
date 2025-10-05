@@ -17,12 +17,12 @@ public class SalaController {
         return this.salaService.listarSalas();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("busca/id/{id}")
     public Optional<Sala> buscar(@PathVariable Long id) {
         return this.salaService.buscarPorId(id);
     }
 
-    @GetMapping("/{codigo}")
+    @GetMapping("busca/codigo/{codigo}")
     public Optional<Sala> buscarPorCodigo(@PathVariable String codigo) {
         return this.salaService.buscarPorCodigo(codigo);
     }
@@ -37,12 +37,12 @@ public class SalaController {
         this.salaService.criarSala(sala);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public void atualizar(@RequestBody Sala sala, @PathVariable Long id) {
         this.salaService.atualizarSala(id, sala);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id){
         this.salaService.deletarSala(id);
     }
