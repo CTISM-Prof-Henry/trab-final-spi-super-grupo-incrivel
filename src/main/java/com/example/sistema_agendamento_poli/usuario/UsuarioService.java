@@ -51,7 +51,7 @@ public class UsuarioService {
         if(usuarioRepository.existsById(id)){
             usuarioRepository.deleteById(id);
         }else{
-            throw new RuntimeException("O usuaário não existe para o id: "+id);
+            throw new RuntimeException("O usuário não existe para o id: "+id);
         }
 
         }

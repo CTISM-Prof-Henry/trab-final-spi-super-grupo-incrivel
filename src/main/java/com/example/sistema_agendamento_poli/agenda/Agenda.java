@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "agenda")
@@ -52,4 +53,5 @@ public class Agenda {
     @Column(name = "status", nullable = false, length = 32)
     @NonNull
     private String status;
+
 }
