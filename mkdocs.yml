@@ -10,3 +10,7 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+plugins:
+  - search
+  - mermaid2:
+      version: 10.0.2

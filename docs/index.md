@@ -17,7 +17,7 @@ O funcionamento deste software depende de um banco de dados PostgreSQL com o nom
 
 
 
-## Instruções de uso da API
+## Back-end do projeto
 
 É possível acessar a API do projeto através do URL `localhost:8080/sistema-agendamento-poli`. Para realizar requests de
 classes específicas, é preciso acessar o URL mapeado para a mesma. Os requests podem ser realizados por aplicativos como Postman ou
@@ -111,4 +111,115 @@ Requests DELETE buscam objetos por ID e os removem do banco de dados.
 Em `localhost:8080/sistema-agendamento-poli/usuarios/2`, realizando um request tipo DELETE, o
 usuário "Teste" será deletado.
 
-Este mkdocs é um work in progress.
+## Diagramas
+
+### Diagrama de caso de uso
+
+```mermaid
+graph TD
+
+%% -------------------- Atores --------------------
+    subgraph  Atores
+        Admin((Administrador))
+        Professor((Professor))
+        Aluno((Aluno))
+    end
+
+%% -------------------- Tela inicial e navegação --------------------
+    subgraph  Tela Inicial
+        inicial[tela inicial]
+        login[tela de login]
+        visualizar_mapa[Visualizar mapa do Politécnico]
+        inicial --> login
+        inicial --> visualizar_mapa
+        Admin--> inicial
+        Professor--> inicial
+        Aluno--> inicial
+    end
+
+%% -------------------- Busca e visualização --------------------
+    subgraph  Busca e Visualização de Salas
+        buscar_sala[Buscar sala por nome ou código]
+        visualizar_sala[Visualizar a agenda de uma sala]
+        inicial --> buscar_sala
+        buscar_sala --> visualizar_sala
+
+    end
+
+%% -------------------- Agendamento --------------------
+    subgraph  Agendamento e Permissões
+        pedir_agendamento[Pedir agendamento]
+        decisao_analisar[Analisar pedido]
+        agendar[Agendar sala]
+
+        Aluno --> pedir_agendamento
+        Admin --> decisao_analisar
+        Professor --> agendar
+        Admin --> agendar
+    end
+
+%% -------------------- Notificações --------------------
+    subgraph  Notificações
+        notificacoes[tela de notificações]
+        login --> notificacoes
+    end
+```
+
+### Diagrama ER
+
+```mermaid
+erDiagram
+    USUARIO {
+        INT id PK
+        STRING nome
+        STRING telefone
+        STRING email
+        STRING identificador "Matrícula ou Contrato"
+        STRING senha
+        STRING tipo "Aluno | Professor | Administrador"
+    }
+
+    BLOCO {
+        INT id PK
+        STRING nome
+        INT quantidade_salas
+    }
+
+    SALA {
+        INT id PK
+        STRING codigo
+        STRING nome
+        INT andar
+        INT bloco_id FK
+    }
+
+    AGENDA {
+        INT id PK
+        DATE data
+        TIME horario_inicio
+        TIME horario_fim
+        STRING status "Disponível | Ocupado"
+        INT sala_id FK
+        INT usuario_id FK
+    }
+
+    NOTIFICACAO {
+        INT id PK
+        STRING mensagem
+        INT usuario_id FK
+        INT agenda_id FK
+    }
+
+    BLOCO ||--o{ SALA : "contém"
+    SALA  ||--o{ AGENDA : "possui"
+    USUARIO ||--o{ AGENDA : "realiza"
+    AGENDA ||--o{ NOTIFICACAO : "gera"
+    USUARIO ||--o{ NOTIFICACAO : "recebe"
+```
+
+## Front-end do projeto
+
+### Modo claro e escuro
+
+No canto superior direito da tela do usuário, é possivel trocar entre o modo claro e o modo escuro do programa.
+
