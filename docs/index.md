@@ -222,4 +222,3 @@ erDiagram
 ### Modo claro e escuro
 
 No canto superior direito da tela do usuário, é possivel trocar entre o modo claro e o modo escuro do programa.
-
