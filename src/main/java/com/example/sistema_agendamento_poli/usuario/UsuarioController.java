@@ -1,6 +1,14 @@
 package com.example.sistema_agendamento_poli.usuario;
 
-import org.springframework.web.bind.annotation.*;
+// Imports do Spring Web otimizados
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +19,8 @@ public class UsuarioController {
 
     private UsuarioService usuarioService;
     public UsuarioController(UsuarioService usuarioService) {this.usuarioService = usuarioService;}
+
+    // --- MÉTODOS DE CONSULTA (Retornam Entidade) ---
 
     @GetMapping("/listar")
     public List<Usuario> listar() {
@@ -32,16 +42,19 @@ public class UsuarioController {
         System.out.println(json);
     }
 
+    // --- CRIAÇÃO (USANDO DTO) ---
     @PostMapping()
-    public void criarUsuario(@RequestBody Usuario usuario){
-        this.usuarioService.criarUsuario(usuario);
+    public void criarUsuario(@RequestBody UsuarioDTO dto){ // Alterado para DTO
+        this.usuarioService.criarUsuario(dto);
     }
 
+    // --- ATUALIZAÇÃO (USANDO DTO) ---
     @PutMapping("/{id}")
-    public void atualizar(@RequestBody Usuario usuario, @PathVariable Long id){
-        this.usuarioService.atualizarUsuario(id, usuario);
+    public void atualizar(@RequestBody UsuarioDTO dto, @PathVariable Long id){ // Alterado para DTO
+        this.usuarioService.atualizarUsuario(id, dto);
     }
 
+    // --- DELEÇÃO ---
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id){
         this.usuarioService.deletarUsuario(id);

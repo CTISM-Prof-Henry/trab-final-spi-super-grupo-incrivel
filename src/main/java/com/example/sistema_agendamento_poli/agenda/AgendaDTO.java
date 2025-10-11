@@ -1,10 +1,20 @@
 package com.example.sistema_agendamento_poli.agenda;
 
-import jakarta.validation.constraints.*;
-import lombok.*;
+// Imports de validation explícitos
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
+import jakarta.validation.constraints.Size;
 
-import java.sql.Date;
-import java.sql.Time;
+// Imports do lombok explícitos
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+// Imports de data/hora modernos
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
@@ -22,13 +32,13 @@ public class AgendaDTO {
     private Long usuarioId;
 
     @NotNull(message = "Data obrigatoria.")
-    private Date data;
+    private LocalDate data; // Alterado de java.sql.Date para java.time.LocalDate
 
     @NotNull(message = "Horario de inicio obrigatorio.")
-    private Time horarioInicio;
+    private LocalTime horarioInicio; // Alterado de java.sql.Time para java.time.LocalTime
 
     @NotNull(message = "Horario de fim obrigatorio.")
-    private Time horarioFim;
+    private LocalTime horarioFim; // Alterado de java.sql.Time para java.time.LocalTime
 
     @NotBlank(message = "Status obrigatorio (Disponivel, Ocupado, Pendente, Cancelado).")
     @Size(max = 32, message = "Status deve ter no maximo 32 caracteres.")

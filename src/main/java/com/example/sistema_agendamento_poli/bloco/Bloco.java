@@ -1,8 +1,24 @@
 package com.example.sistema_agendamento_poli.bloco;
 
 import com.example.sistema_agendamento_poli.sala.Sala;
-import jakarta.persistence.*;
-import lombok.*;
+
+//imports persistance
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+//imports lombok
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 

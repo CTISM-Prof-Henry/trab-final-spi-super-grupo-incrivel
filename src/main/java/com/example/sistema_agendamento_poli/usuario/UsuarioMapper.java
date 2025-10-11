@@ -1,6 +1,13 @@
 package com.example.sistema_agendamento_poli.usuario;
 
-public class UsuarioMapper {
+public final class UsuarioMapper { // <--- Adicionado 'final'
+
+    /**
+     * Construtor privado para evitar a instanciação da classe utilitária.
+     */
+    private UsuarioMapper() { // <--- Construtor privado adicionado
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated.");
+    }
 
     public static UsuarioDTO toDTO(Usuario usuario) {
         if (usuario == null) {

@@ -2,7 +2,14 @@ package com.example.sistema_agendamento_poli.sala;
 
 import com.example.sistema_agendamento_poli.bloco.Bloco;
 
-public class SalaMapper {
+public final class SalaMapper { // <--- Adicionado 'final'
+
+    /**
+     * Construtor privado para evitar a instanciação da classe utilitária.
+     */
+    private SalaMapper() { // <--- Construtor privado adicionado
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated.");
+    }
 
     public static SalaDTO toDTO(Sala sala) {
         if (sala == null) {

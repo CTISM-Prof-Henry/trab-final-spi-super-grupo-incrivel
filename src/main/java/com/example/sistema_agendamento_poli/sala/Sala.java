@@ -1,8 +1,22 @@
 package com.example.sistema_agendamento_poli.sala;
 
 import com.example.sistema_agendamento_poli.bloco.Bloco;
-import jakarta.persistence.*;
-import lombok.*;
+// Imports do persistence otimizados
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+// Imports do lombok otimizados
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "sala")
@@ -37,4 +51,12 @@ public class Sala {
     @JoinColumn(name = "bloco_id", nullable = false)
     @NonNull
     private Bloco bloco;
+
+    /**
+     * Construtor para ser usado em conversões DTO->Entidade para criar referência
+     * de chave estrangeira (FK) apenas com o ID.
+     */
+    public Sala(Long id) {
+        this.id = id;
+    }
 }

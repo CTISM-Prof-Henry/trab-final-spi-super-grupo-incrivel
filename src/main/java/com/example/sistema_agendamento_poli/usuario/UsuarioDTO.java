@@ -1,8 +1,16 @@
 package com.example.sistema_agendamento_poli.usuario;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.*;
-import lombok.*;
+// Imports de validation explícitos
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Null;
+import jakarta.validation.constraints.Size;
+// Imports do lombok explícitos
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data // já inclui @Getter, @Setter, @ToString, @EqualsAndHashCode, etc.
 @NoArgsConstructor

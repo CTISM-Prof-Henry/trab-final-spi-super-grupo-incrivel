@@ -1,6 +1,13 @@
 package com.example.sistema_agendamento_poli.bloco;
 
-public class BlocoMapper {
+public final class BlocoMapper { // <--- Adicionado 'final'
+
+    /**
+     * Construtor privado para evitar a instanciação da classe utilitária.
+     */
+    private BlocoMapper() { // <--- Construtor privado adicionado
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated.");
+    }
 
     public static BlocoDTO toDTO(Bloco bloco) {
         if (bloco == null) {
@@ -28,4 +35,3 @@ public class BlocoMapper {
         return bloco;
     }
 }
-

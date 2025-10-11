@@ -1,7 +1,19 @@
 package com.example.sistema_agendamento_poli.usuario;
 
-import jakarta.persistence.*;
-import lombok.*;
+// Imports do persistence otimizados
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+// Imports do lombok otimizados
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "usuario")
@@ -38,4 +50,12 @@ public class Usuario {
     @NonNull
     @Column(nullable = false, unique = true, length = 50)
     private String identificador; // Matrícula ou contrato
+
+    /**
+     * Construtor para ser usado em conversões DTO->Entidade para criar referência
+     * de chave estrangeira (FK) apenas com o ID.
+     */
+    public Usuario(Long id) {
+        this.id = id;
+    }
 }

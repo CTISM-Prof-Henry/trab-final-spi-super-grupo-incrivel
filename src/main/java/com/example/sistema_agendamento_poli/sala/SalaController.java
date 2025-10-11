@@ -1,5 +1,14 @@
 package com.example.sistema_agendamento_poli.sala;
-import org.springframework.web.bind.annotation.*;
+
+// Imports do Spring Web otimizados
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +20,8 @@ public class SalaController {
     private SalaService salaService;
     public SalaController(SalaService salaService) {
         this.salaService = salaService;}
+
+    // --- MÉTODOS DE CONSULTA (Retornam Entidade) ---
 
     @GetMapping("/listar")
     public List<Sala> listar() {
@@ -27,20 +38,27 @@ public class SalaController {
         return this.salaService.buscarPorCodigo(codigo);
     }
 
+    // Mantido como está (apenas para debug)
     @PostMapping("/print-json")
     public void printJson(@RequestBody String json) {
         System.out.println(json);
     }
 
+    // --- CRIAÇÃO (USANDO DTO) ---
+
     @PostMapping()
-    public void criarSala(@RequestBody Sala sala) {
-        this.salaService.criarSala(sala);
+    public void criarSala(@RequestBody SalaDTO dto) { // Alterado para DTO
+        this.salaService.criarSala(dto); // Service já foi atualizado para DTO
     }
 
+    // --- ATUALIZAÇÃO (USANDO DTO) ---
+
     @PutMapping("/{id}")
-    public void atualizar(@RequestBody Sala sala, @PathVariable Long id) {
-        this.salaService.atualizarSala(id, sala);
+    public void atualizar(@RequestBody SalaDTO dto, @PathVariable Long id) { // Alterado para DTO
+        this.salaService.atualizarSala(id, dto); // Service já foi atualizado para DTO
     }
+
+    // --- DELEÇÃO ---
 
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id){

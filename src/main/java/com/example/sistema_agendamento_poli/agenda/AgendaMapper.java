@@ -3,7 +3,14 @@ package com.example.sistema_agendamento_poli.agenda;
 import com.example.sistema_agendamento_poli.sala.Sala;
 import com.example.sistema_agendamento_poli.usuario.Usuario;
 
-public class AgendaMapper {
+public final class AgendaMapper {
+
+    /**
+     * Construtor privado para evitar a instanciação da classe utilitária.
+     */
+    private AgendaMapper() {
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated.");
+    }
 
     public static AgendaDTO toDTO(Agenda agenda) {
         if (agenda == null) {
@@ -38,4 +45,3 @@ public class AgendaMapper {
         return agenda;
     }
 }
-

@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate; // NOVO IMPORT: Substitui java.sql.Date
+import java.time.LocalTime; // NOVO IMPORT: Substitui java.sql.Time
 import java.util.List;
 
 @Repository
@@ -15,12 +15,17 @@ public interface AgendaRepository extends JpaRepository<Agenda, Long>, JpaSpecif
 
     // Calendario diario da sala
     // Retorna agendas de uma sala em um dia, ordenadas por horario inicial
-    List<Agenda> findBySalaIdAndDataOrderByHorarioInicio(Long salaId, Date data);
+    List<Agenda> findBySalaIdAndDataOrderByHorarioInicio(Long salaId, LocalDate data); // Tipo alterado
 
     // sobreposicao (status "Ocupado")
     // Verifica se ha conflito de horario na sala para a data informada
     boolean existsBySalaIdAndDataAndStatusAndHorarioInicioLessThanAndHorarioFimGreaterThan(
-            Long salaId, Date data, String status, Time fim, Time inicio);
+            Long salaId,
+            LocalDate data, // Tipo alterado
+            String status,
+            LocalTime fim, // Tipo alterado
+            LocalTime inicio // Tipo alterado
+    );
 
     // Minhas reservas
     // Lista agendas do usuario em ordem decrescente de data/horario
@@ -29,5 +34,8 @@ public interface AgendaRepository extends JpaRepository<Agenda, Long>, JpaSpecif
     // Visao semanal/mensal
     // Busca agendas de uma sala em um intervalo de datas, ordenadas por dia/hora
     List<Agenda> findBySalaIdAndDataBetweenOrderByDataAscHorarioInicioAsc(
-            Long salaId, Date dataInicio, Date dataFim);
+            Long salaId,
+            LocalDate dataInicio, // Tipo alterado
+            LocalDate dataFim // Tipo alterado
+    );
 }

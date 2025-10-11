@@ -3,7 +3,14 @@ package com.example.sistema_agendamento_poli.notificacao;
 import com.example.sistema_agendamento_poli.agenda.Agenda;
 import com.example.sistema_agendamento_poli.usuario.Usuario;
 
-public class NotificacaoMapper {
+public final class NotificacaoMapper { // <--- Adicionado 'final'
+
+    /**
+     * Construtor privado para evitar a instanciação da classe utilitária.
+     */
+    private NotificacaoMapper() { // <--- Construtor privado adicionado
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated.");
+    }
 
     public static NotificacaoDTO toDTO(Notificacao notificacao) {
         if (notificacao == null) {
