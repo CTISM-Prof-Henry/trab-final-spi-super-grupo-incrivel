@@ -1,2 +1,0 @@
-Aqui a logica eh um pouco mais complicada
-Essencialmente, aqui vao todos os arquivos que interagem com 2 ou mais entidades do banco de dados

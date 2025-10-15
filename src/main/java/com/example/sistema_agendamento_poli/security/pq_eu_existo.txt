@@ -1,3 +1,0 @@
-Aqui vamos colocar todos os arquivos que envolvem seguranca de login
-para que nao se misture com a logica de programacao e regras de negocio
-(A implementacao eh opcional)
