@@ -52,10 +52,15 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
+    public Optional<Usuario> buscarUsuarioPorId(Long id) {
+        return usuarioRepository.findById(id);
+    }
+
     public Optional<Usuario> buscarUsuario(String email) {
         // Pressupõe que findByEmail existe em UsuarioRepository
         return usuarioRepository.findByEmail(email);
     }
+
 
     public Optional<Usuario> buscarUsuarioPorIdentificador(String identificador) {
         // Pressupõe que findByIdentificador existe em UsuarioRepository
