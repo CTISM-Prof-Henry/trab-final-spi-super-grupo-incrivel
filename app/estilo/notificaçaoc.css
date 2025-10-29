@@ -1,0 +1,291 @@
+/* ========================================================================= */
+/* ESTILOS GERAIS DA PÁGINA (body) - CORREÇÃO DE ALINHAMENTO */
+/* ========================================================================= */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; 
+    
+    /* REMOVIDO: padding: 20px; -> Isso causava o espaçamento no topo e nas laterais */
+    margin: 0; 
+    
+    /* GARANTE QUE O CONTEÚDO OCUPA TODO O ESPAÇO, E NÃO APENAS O CONTAINER */
+    display: flex;
+    flex-direction: column; 
+    
+    /* Alinha o conteúdo ao topo (START) e não tem impacto horizontal com 100% de largura */
+    align-items: flex-start; 
+    
+    min-height: 100vh;
+    width: 100%; /* Garante que o body use toda a largura */
+    box-sizing: border-box; 
+}
+
+/* ========================================================================= */
+/* ESTILOS DO CABEÇALHO/BARRA DE NAVEGAÇÃO (salacs.css) */
+/* ========================================================================= */
+
+#main-navbar {
+    width: 100%; /* OCUPA A LARGURA TOTAL DO BODY (que agora é 100%) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #5893BE; /* Azul UFSM */
+    color: white;
+    padding: 10px 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+    box-sizing: border-box; /* Essencial para que padding não cause rolagem horizontal */
+    
+    /* NOVO: Garante que o cabeçalho fique por cima de qualquer outro elemento */
+    z-index: 10;
+}
+
+.nav-left, .nav-right, .nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    margin-right: 30px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 5px 0;
+    transition: border-bottom 0.3s;
+}
+
+.nav-links a:hover {
+    border-bottom: 2px solid #ffffff; 
+}
+
+.nav-icon-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 15px;
+    padding: 8px;
+    transition: background-color 0.2s;
+}
+
+.nav-icon-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-icon-btn img {
+    width: 20px; 
+    height: 20px;
+    max-width: 100%;
+    max-height: 100%;
+    border: none;
+    vertical-align: middle; 
+}
+
+/* ========================================================================= */
+/* ESTILOS DO CONTEÚDO (notificaçaoc.css) */
+/* ========================================================================= */
+
+.container {
+    width: 90%;
+    max-width: 1000px; 
+    /* Novo Padding para o conteúdo principal, já que o body não tem mais */
+    padding: 20px 0; 
+    margin-top: 0; 
+}
+
+/* Centralização do container, já que ele não está mais alinhado ao flex-start do body */
+body > .container {
+    /* Define a largura máxima do container centralmente */
+    width: calc(100% - 40px); /* 100% menos 20px de padding em cada lado */
+    max-width: 1000px;
+    margin: 20px auto; /* Centraliza horizontalmente e dá margem de 20px no topo/base */
+    padding: 0; /* O espaçamento já está na margem */
+}
+
+
+h1 {
+    text-align: left; 
+    margin-bottom: 30px;
+    font-size: 2.5em; 
+}
+
+/* Botões de Ações (Canto Superior Direito) */
+.actions {
+    display: flex;
+    justify-content: flex-end; 
+    margin-bottom: 15px;
+}
+
+.actions button {
+    padding: 10px 15px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#markAllRead {
+    background-color: #3E81C0;
+    color: white;
+}
+
+#clearAll {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Centralização da Lista e Estilo da Tabela */
+.notification-list-container {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 0; 
+    border: 1px solid #000000; /* Stroke (borda) */
+}
+
+#notificationTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* NOVO: Indica que a linha é clicável e tem um hover */
+#notificationTable tbody tr {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#notificationTable tbody tr:hover {
+    background-color: #f9f9f9; /* Leve destaque ao passar o mouse */
+}
+
+
+#notificationTable th, #notificationTable td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#notificationTable th {
+    background-color: #e9e9e9; /* Cabeçalho mais escuro */
+    color: #333;
+    font-weight: bold;
+}
+
+/* Estilo para Notificações Não Lidas */
+.unread {
+    background-color: #f0f0f0; /* Fundo cinza claro para destacar a não lida */
+}
+
+/* Estilo da Ação (Lixeira) */
+.delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6B6B6B; 
+    font-size: 1.1em;
+    padding: 5px;
+}
+
+.delete-btn:hover {
+    color: #000000;
+}
+
+/* Estilo do Modal (Comum para Exclusão e Visualização) */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+/* Estilo Comum para o Conteúdo dos Modais */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo Específico para o Modal de Confirmação de Exclusão */
+#deleteModal .modal-content {
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+}
+
+/* NOVO: Estilo Específico para o Modal de Visualização */
+#viewModal .modal-content {
+    max-width: 500px; 
+    text-align: left; 
+}
+
+/* Estilos do Botão de Fechar (X) */
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+/* Estilos dos Botões de Ação dentro dos Modais */
+.modal-content button {
+    padding: 8px 15px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#confirmDelete {
+    background-color: #dc3545;
+    color: white;
+}
+
+#cancelDelete {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Estilo para o botão "Fechar" do modal de visualização */
+#closeViewModal {
+    background-color: #5893BE;
+    color: white;
+    margin-top: 20px;
+}
+
+/* Detalhes internos do modal de visualização */
+#viewModal h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.5em;
+}
+
+.modal-date {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+}
