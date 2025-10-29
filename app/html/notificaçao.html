@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Notificações</title>
+    
+    <link rel="stylesheet" href="salacs.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css">
+
+    <link rel="stylesheet" href="notificaçaoc.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    
+    <header id="main-navbar">
+        <div class="nav-left">
+            <a href="" class="nav-brand">UFSM</a>
+            <nav class="nav-links">
+                <a href="/salas">Salas</a>
+                <a href="/agendar">Agendar</a>
+                <a href="file:///C:/Users/bianc/Music/Nova%20pasta/trab-final-spi-super-grupo-incrivel-dev/src/main/resources/static/Front-end/telaSala/sala.html">Buscar</a>
+                <a href="/meus-agendamentos">Meus Agendamentos</a>
+            </nav>
+        </div>
+        <div class="nav-right">
+            <span id="welcome-message">Olá, USUARIO</span>
+            <a href="notificaçao.html">
+            <button class="nav-icon-btn notification-btn" aria-label=" Notificações">
+                <img src="sino.png" alt="Notificações"></a>
+                
+            </button>
+            <button class="nav-icon-btn user-btn" aria-label="Opções do Usuário">
+                <img src="config.png" alt="Configurações do Usuário">
+            </button>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h1>Minhas Notificações</h1>
+        
+        <div class="actions">
+            <button id="markAllRead">Marcar como Lidas</button>
+            <button id="clearAll">Limpar Tudo</button>
+        </div>
+
+        <div class="notification-list-container">
+            <table id="notificationTable">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Título</th>
+                        <th>Descrição</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="notificationBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <p>Deseja mesmo excluir esta notificação?</p>
+            <button id="confirmDelete">Sim</button>
+            <button id="cancelDelete">Não</button>
+        </div>
+    </div>
+    
+    <div id="viewModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeButtonX">&times;</span> 
+            
+            <h2 id="viewTitle"></h2> 
+            <p class="modal-date" id="viewDate"></p>
+            <hr>
+            <p class="modal-description" id="viewDescription"></p>
+            
+            <button id="closeViewModal">Fechar</button>
+        </div>
+    </div>
+
+    <script src="notificaçaojs.js"></script>
+</body>
+</html>
