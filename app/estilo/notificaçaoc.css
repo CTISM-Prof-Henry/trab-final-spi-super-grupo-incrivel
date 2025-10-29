@@ -289,3 +289,60 @@ h1 {
     color: #666;
     margin-bottom: 10px;
 }
+
+/* ===== tema escuro para a página de notificações ===== */
+.dark-theme .container {
+    background-color: #0b1220;
+    color: #e5e7eb;
+}
+
+.dark-theme #notificationTable,
+.dark-theme #notificationTable th,
+.dark-theme #notificationTable td,
+.dark-theme .notification-list-container {
+    background-color: #07111a;
+    color: #e5e7eb;
+    border-color: #1f2937;
+}
+
+.dark-theme .unread {
+    background-color: #09121a;
+}
+
+.dark-theme .modal-content {
+    background-color: #07111a;
+    color: #e5e7eb;
+    border: 1px solid #1f2937;
+}
+
+/* Garantir que o tema escuro afete o body e navbar também */
+.dark-theme {
+    background-color: #0f1720;
+    color: #e5e7eb;
+}
+
+.dark-theme #main-navbar {
+    background-color: #0b1220;
+    border-bottom: 1px solid #1f2937;
+    color: #e5e7eb;
+}
+
+/* Cobrir o body diretamente (caso existam regras que sobrescrevem) */
+.dark-theme body,
+body.dark-theme {
+    background-color: #0f1720 !important;
+    color: #e5e7eb !important;
+}
+
+/* pequenos ajustes para garantir contraste em elementos da página */
+.dark-theme .container,
+.dark-theme .notification-list-container,
+.dark-theme .modal-content {
+    background-color: #07111a !important;
+    color: #e5e7eb !important;
+    border-color: #1f2937 !important;
+}
+
+.dark-theme .nav-icon-btn img {
+    filter: invert(1) brightness(1.2);
+}

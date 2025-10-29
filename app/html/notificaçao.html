@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minhas Notificações</title>
     
-    <link rel="stylesheet" href="salacs.css"> 
+    <link rel="stylesheet" href="../estilo/salacs.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css">
 
@@ -20,19 +20,25 @@
             <nav class="nav-links">
                 <a href="/salas">Salas</a>
                 <a href="/agendar">Agendar</a>
-                <a href="file:///C:/Users/bianc/Music/Nova%20pasta/trab-final-spi-super-grupo-incrivel-dev/src/main/resources/static/Front-end/telaSala/sala.html">Buscar</a>
+                <a href="../html/sala.html">Buscar</a>
                 <a href="/meus-agendamentos">Meus Agendamentos</a>
             </nav>
         </div>
         <div class="nav-right">
             <span id="welcome-message">Olá, USUARIO</span>
+
+            <!-- Botão alternar tema -->
+            <button id="theme-toggle-btn" class="nav-icon-btn" aria-label="Alternar tema" title="Alternar tema">
+                <span id="theme-icon">🌙</span>
+            </button>
+
             <a href="../html/notificaçao.html">
             <button class="nav-icon-btn notification-btn" aria-label=" Notificações">
                 <img src="../images/sino.png" alt="Notificações"></a>
                 
             </button>
             <button class="nav-icon-btn user-btn" aria-label="Opções do Usuário">
-                <img src="../imagens/config.png" alt="Configurações do Usuário">
+                <img src="../images/config.png" alt=" Configurações do Usuário">
             </button>
         </div>
     </header>

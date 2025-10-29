@@ -154,6 +154,40 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     };
 
+    // ----------------------------
+    // THEME TOGGLE (Dark Mode)
+    // ----------------------------
+    function applyTheme(theme) {
+        const body = document.body;
+        const iconEl = document.getElementById('theme-icon');
+        if (!body || !iconEl) return;
+
+        if (theme === 'dark') {
+            body.classList.add('dark-theme');
+            iconEl.textContent = '☀';
+        } else {
+            body.classList.remove('dark-theme');
+            iconEl.textContent = '🌙';
+        }
+        try { localStorage.setItem('app-theme', theme); } catch (e) {}
+    }
+
+    function toggleTheme() {
+        const current = localStorage.getItem('app-theme') === 'dark' ? 'dark' : 'light';
+        const next = current === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+    }
+
+    function applyThemeFromStorage() {
+        const saved = localStorage.getItem('app-theme') === 'dark' ? 'dark' : 'light';
+        applyTheme(saved);
+    }
+
+    // Aplica tema salvo e associa botão (quando o DOM estiver pronto)
+    applyThemeFromStorage();
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+
     // Inicializa a renderização
     renderNotifications();
 });
