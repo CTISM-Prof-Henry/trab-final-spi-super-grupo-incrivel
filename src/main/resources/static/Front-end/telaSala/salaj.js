@@ -226,29 +226,52 @@ function initializeFullCalendar(events = []) {
 // LÓGICA DE BUSCA E FILTRAGEM
 // =========================================================================
 
-/**
- * Popula o SELECT de Blocos/Setores ao carregar a página.
- */
-function popularSelectBlocos() {
+/* Substitui as funções de populaçao/consulta para usar o backend via fetch,
+   com fallback para mockData já presente no arquivo. */
+
+async function fetchSalasFromApi() {
     try {
-        const blocoSelect = document.getElementById('bloco-select');
-        if (!blocoSelect) return;
-        
-        mockData.forEach(bloco => {
-            const option = document.createElement('option');
-            option.value = bloco.bloco;
-            option.textContent = bloco.bloco;
-            blocoSelect.appendChild(option);
-        });
-        
+        const res = await fetch('/api/salas'); // endpoint REST (ver sugestões abaixo)
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const salas = await res.json(); // espera [{codigo, nome, bloco, capacidade}, ...] ou agrupado
+        return salas;
     } catch (e) {
-        console.error("Erro ao popular Select de Blocos:", e);
+        console.warn('Não foi possível obter salas do backend, usando mock:', e);
+        // Converte mockData para lista simples de salas mantendo bloco
+        const list = [];
+        mockData.forEach(b => b.salas.forEach(s => list.push({...s, bloco: b.bloco})));
+        return list;
     }
 }
 
-/**
- * Filtra as salas e popula o SELECT de Salas com base no Bloco/Setor selecionado.
- */
+async function popularSelectBlocos() {
+    try {
+        const blocoSelect = document.getElementById('bloco-select');
+        if (!blocoSelect) return;
+        blocoSelect.innerHTML = '<option value="">Selecione um Bloco</option>';
+
+        const salasList = await fetchSalasFromApi();
+        // Agrupa por bloco
+        const blocosMap = {};
+        salasList.forEach(s => {
+            const bloco = s.bloco || 'Sem Bloco';
+            blocosMap[bloco] = blocosMap[bloco] || [];
+            blocosMap[bloco].push(s);
+        });
+        // Atualiza mockData em memória para compatibilidade com filtrarSalas
+        mockData.length = 0;
+        Object.keys(blocosMap).forEach(blocoName => {
+            mockData.push({ bloco: blocoName, salas: blocosMap[blocoName] });
+            const option = document.createElement('option');
+            option.value = blocoName;
+            option.textContent = blocoName;
+            blocoSelect.appendChild(option);
+        });
+    } catch (e) {
+        console.error('Erro ao popular Select de Blocos:', e);
+    }
+}
+
 window.filtrarSalas = function(blocoName) {
     const salaSelect = document.getElementById('sala-select');
     // Limpa as opções existentes e adiciona o placeholder
@@ -289,39 +312,45 @@ window.filtrarSalas = function(blocoName) {
 /**
  * Busca os detalhes da sala e ATUALIZA O FULLCALENDAR.
  */
-window.buscarCalendario = function(blocoCode, salaCode) {
+window.buscarCalendario = async function(blocoCode, salaCode) {
     const searchAlert = document.getElementById('search-alert');
-    searchAlert.textContent = ''; 
-    
-    // Atualiza o estado da seleção
+    searchAlert.textContent = '';
     currentBlockCode = blocoCode;
     currentSalaCode = salaCode;
     currentSalaAgenda = [];
 
     if (!salaCode || !blocoCode) {
-        searchAlert.textContent = "Por favor, selecione um Bloco e uma Sala."; 
+        searchAlert.textContent = "Por favor, selecione um Bloco e uma Sala.";
         initializeFullCalendar([]);
-        return; 
+        return;
     }
 
+    // Tenta buscar agenda específica do backend
+    try {
+        const res = await fetch(`/api/salas/${encodeURIComponent(salaCode)}/agenda`);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const eventos = await res.json(); // espera array compatível com FullCalendar
+        currentSalaAgenda = eventos;
+        const salaEncontrada = mockData.flatMap(b => b.salas).find(s => s.codigo.toLowerCase() === salaCode.toLowerCase());
+        searchAlert.innerHTML = `Exibindo agenda para: <strong>${salaEncontrada?.codigo || salaCode} - ${salaEncontrada?.nome || ''}</strong> (Capacidade: ${salaEncontrada?.capacidade || 'N/A'})`;
+        initializeFullCalendar(currentSalaAgenda);
+        return;
+    } catch (e) {
+        console.warn('Erro ao buscar agenda do backend, fallback para dados locais:', e);
+    }
+
+    // Fallback: busca no mockData (existente)
     const bloco = mockData.find(b => b.bloco.toLowerCase() === blocoCode.toLowerCase());
     const salaEncontrada = bloco?.salas.find(s => s.codigo.toLowerCase() === salaCode.toLowerCase());
-
     if (!salaEncontrada) {
         searchAlert.textContent = "Sala não encontrada.";
         initializeFullCalendar([]);
         return;
     }
-    
-    currentSalaAgenda = salaEncontrada.agenda;
-    
-    // 1. Atualiza o alerta com detalhes da sala
+    currentSalaAgenda = salaEncontrada.agenda || [];
     searchAlert.innerHTML = `Exibindo agenda para: <strong>${salaEncontrada.codigo} - ${salaEncontrada.nome}</strong> (Capacidade: ${salaEncontrada.capacidade})`;
-
-    // 2. Carrega e renderiza a agenda NO FULLCALENDAR
     initializeFullCalendar(currentSalaAgenda);
 };
-
 // =========================================================================
 // INICIALIZAÇÃO DA APLICAÇÃO
 // =========================================================================
