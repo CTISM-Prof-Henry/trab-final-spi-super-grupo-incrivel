@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <link rel="stylesheet" href="../estilo/salacs.css"> 
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css">
+    </head>
+<body>
+    
+    <header id="main-navbar">
+        <div class="nav-left">
+            <a href="" class="nav-brand">UFSM</a>
+            <nav class="nav-links">
+                <a href="/salas">Salas</a>
+                <a href="/agendar">Agendar</a>
+                <a href="/Front-end/telaSala/sala.html"><b >Buscar</b></a>
+                <a href="/meus-agendamentos">Meus Agendamentos</a>
+            </nav>
+        </div>
+        <div class="nav-right">
+            <span id="welcome-message">Olá, USUARIO</span>
+
+            <!-- Botão alternar tema -->
+            <button id="theme-toggle-btn" class="nav-icon-btn" aria-label="Alternar tema" title="Alternar tema">
+                <span id="theme-icon">🌙</span>
+            </button>
+
+            <a href="file:///C:/Users/bianc/Music/Nova%20pasta/trab-final-spi-super-grupo-incrivel-dev/src/main/resources/static/Front-end/telaNotificacao/notifica%C3%A7ao.html">
+            <button class="nav-icon-btn notification-btn" aria-label="Notificações">
+                <img src="../images/sino.png" alt="Notificações"></a>
+                
+            </button>
+            <button class="nav-icon-btn user-btn" aria-label="Opções do Usuário">
+                <img src="../images/config.png" alt="Configurações do Usuário">
+            </button>
+        </div>
+    </header>
+    
+    <main>
+        <div id="search-area-wrapper"> 
+            <h3 class="section-title">BUSCAR CALENDÁRIO DE SALA</h3>
+            <section id="search-bar-container">
+                <div class="search-column">
+                    <label for="bloco-select">Bloco</label>
+                    <select id="bloco-select" class="flat-input" 
+                            onchange="filtrarSalas(this.value)">
+                        <option value="">Selecione um Bloco</option>
+                    </select>
+                </div>
+                <div class="search-column">
+                    <label for="sala-select">Sala</label>
+                    <select id="sala-select" class="flat-input" 
+                            onchange="buscarCalendario(document.getElementById('bloco-select').value, this.value)" 
+                            disabled>
+                        <option value="">Selecione uma Sala</option>
+                    </select>
+                </div>
+            </section>
+            <p id="search-alert" style="margin-top: 10px; color: red;"></p>
+        </div>
+
+        <section id="agenda-view" style="margin-top: 30px;">
+             <div class="ui container">
+                <div class="ui grid">
+                    <div class="ui sixteen wide column">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+            <p id="loading-message" style="display: none; text-align: center; margin-top: 20px;">Carregando agenda...</p>
+        </section>
+
+        <div id="agendamento-tooltip" class="tooltip"></div>
+        
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/locale/pt-br.js'></script>
+    
+    <script>
+        $(document).ready(function() {
+            
+            // Função que fecha o popup ao clicar em qualquer lugar dentro dele (Mantida)
+            function enablePopupClose($eventElement) {
+                setTimeout(function() {
+                    var $popupModule = $eventElement.popup('get popup');
+                    
+                    if ($popupModule.length) {
+                        $popupModule.off('click.closePopup').on('click.closePopup', function(e) {
+                            e.stopPropagation(); 
+                            $eventElement.popup('hide');
+                            $eventElement.popup('destroy'); 
+                        });
+                    }
+                }, 50);
+            }
+            
+            $('#calendar').fullCalendar({
+                locale: 'pt-br',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
+                },
+                defaultDate: '2025-10-06',
+                navLinks: true,
+                editable: true,
+                eventLimit: true,
+                validRange: {
+                    start: '2025-10-01'
+                },
+                
+                eventClick: function(calEvent, jsEvent, view) {
+                    
+                    var $eventElement = $(this);
+                    $eventElement.popup('destroy');
+                    
+                    // Formatação das datas e links
+                    var start = calEvent.start.format('DD/MM HH:mm');
+                    var end = calEvent.end ? calEvent.end.format('DD/MM HH:mm') : 'N/A';
+                    
+                    var urlContent = calEvent.url 
+                        ? '<p><a href="' + calEvent.url + '" target="_blank" style="color: #4183C4;">Abrir Link</a></p>'
+                        : '';
+                    
+                    var solicitante = calEvent.solicitante ? calEvent.solicitante : 'Não informado';
+                    var description = calEvent.description ? calEvent.description : 'Nenhuma descrição fornecida.';
+                    
+                    // 3. Constrói o HTML do balão
+                    var popupContentHTML = 
+                        '<div>' +
+                            '<div class="header">' + calEvent.title + '</div>' +
+                            '<div class="content">' +
+                                '<p><strong>Solicitante:</strong> ' + solicitante + '</p>' + 
+                                '<p><strong>Descrição:</strong> ' + description + '</p>' + 
+                                '<p><strong>Início:</strong> ' + start + '</p>' +
+                                '<p><strong>Fim:</strong> ' + end + '</p>' +
+                                 urlContent +
+                            '</div>' +
+                        '</div>';
+                    
+                    // 4. Inicializa, exibe e ativa o clique para fechar
+                    $eventElement.popup({
+                        title: calEvent.title,
+                        content: popupContentHTML,
+                        position: 'bottom center', 
+                        html: popupContentHTML,
+                        on: 'manual', 
+                        onHidden: function() {
+                            $eventElement.popup('destroy');
+                        },
+                    });
+    
+                    $eventElement.popup('show');
+                    enablePopupClose($eventElement);
+                    
+                    return false; 
+                },
+                
+                eventRender: function(event, element) {
+                    $('.fc-scroller').off('scroll.popup').on('scroll.popup', function() {
+                        $(element).popup('destroy');
+                    });
+                },
+    
+            });
+        });
+    </script>
+
+    <script src="../js/salaj.js"></script> 
+    
+</body>
+</html>
