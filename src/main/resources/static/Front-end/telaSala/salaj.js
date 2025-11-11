@@ -230,11 +230,8 @@ function initializeFullCalendar(events = []) {
    com fallback para mockData já presente no arquivo. */
 
 async function fetchSalasFromApi() {
-
-    //mudança recente aqui
     try {
-        const res = await fetch('/salas/listar');
- // endpoint REST (ver sugestões abaixo)
+        const res = await fetch('/api/salas'); // endpoint REST (ver sugestões abaixo)
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const salas = await res.json(); // espera [{codigo, nome, bloco, capacidade}, ...] ou agrupado
         return salas;
@@ -330,7 +327,7 @@ window.buscarCalendario = async function(blocoCode, salaCode) {
 
     // Tenta buscar agenda específica do backend
     try {
-        const res = await fetch(`/salas/busca/codigo/${encodeURIComponent(salaCode)}/agenda`);
+        const res = await fetch(`/api/salas/${encodeURIComponent(salaCode)}/agenda`);
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const eventos = await res.json(); // espera array compatível com FullCalendar
         currentSalaAgenda = eventos;
