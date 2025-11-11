@@ -1,0 +1,350 @@
+/* ========================================================================= */
+/* 1. CONTEÚDO DE salacs.css (ESTILOS GERAIS, NAV, BUSCA) */
+/* ========================================================================= */
+
+/* Estilos globais e navbar */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f7f9;
+    margin: 0;
+    padding: 0;
+}
+
+#main-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #5893BE; /* Azul UFSM */
+    color: white;
+    padding: 10px 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+    /* NOVO: Aplica a fonte Inter a todo o conteúdo do cabeçalho */
+    font-family: 'Inter', sans-serif; 
+}
+.nav-left, .nav-right, .nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-brand {
+    /* ... mantenha os outros estilos (size, weight, color) ... */
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    margin-right: 30px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 5px 0;
+    transition: border-bottom 0.3s;
+}
+
+.nav-links a:hover {
+    border-bottom: 2px solid #ffffff; /* Amarelo de destaque */
+}
+
+.nav-icon-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 15px;
+    padding: 8px;
+    transition: background-color 0.2s;
+}
+
+.nav-icon-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Área Principal de Conteúdo */
+main {
+    padding: 20px;
+}
+
+/* 1. Área de Busca e Título */
+#search-area-wrapper {
+    max-width: 1170px; 
+    margin: 20px auto;
+    padding: 20px;
+    h3 {
+    font-size: 2.28rem;
+}
+}
+
+.section-title {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+#search-bar-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-end; 
+    background-color: #e9ecef;
+    padding: 25px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    gap: 30px;
+}
+
+.search-column {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-width: 300px; 
+}
+
+.search-column label {
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Estilo de input plano para Bloco e Sala */
+.flat-input {
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    background-color: white;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.flat-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+/* 2. Área de Detalhes da Sala e Agenda */
+#sala-details-view {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+#sala-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+#sala-details h3 {
+    margin-top: 0;
+    color: #004d99;
+}
+
+#sala-image-placeholder {
+    width: 150px; 
+    height: 100px; 
+    background-color: #ddd; 
+    border: 1px solid #ccc; 
+    text-align: center; 
+    line-height: 100px; 
+    font-size: 0.8rem; 
+    color: #555;
+    overflow: hidden;
+}
+
+/* Controles do Calendário */
+#calendar-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#current-period {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.flat-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.flat-button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos da Tabela de Agenda (Calendário) */
+#agenda-table-view {
+    overflow-x: auto; 
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+#agenda-table-view table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; 
+}
+
+#agenda-table-view th, #agenda-table-view td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    min-width: 100px; 
+    height: 40px;
+}
+
+#agenda-table-view thead th {
+    background-color: #f8f9fa;
+    color: #333;
+    font-weight: 600;
+}
+
+#agenda-table-view tbody tr:nth-child(even) {
+    background-color: #fcfcfc;
+}
+
+/* Estilo da Coluna de Horário */
+#agenda-table-view tbody tr td:first-child {
+    background-color: #f8f9fa;
+    font-weight: 500;
+    color: #333;
+    position: sticky; 
+    left: 0;
+    z-index: 2;
+}
+
+
+/* Bloco Ocupado na Agenda */
+.occupied-slot {
+    background-color: #dc3545; /* Vermelho forte para ocupado */
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px;
+    border: 1px solid #dc3545; /* Borda reta */
+    cursor: help;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Estilo do Tooltip (Balão de Mensagem) */
+.tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    z-index: 10;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    max-width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    pointer-events: none; 
+    transition: opacity 0.3s, visibility 0.3s;
+    white-space: pre-wrap; 
+    text-align: left;
+}
+
+/* Responsividade Básica */
+@media (max-width: 768px) {
+    #search-bar-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-column {
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+
+    #sala-info-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    #sala-image-placeholder {
+        margin-top: 15px;
+    }
+
+    #main-navbar {
+        padding: 10px 20px;
+    }
+}
+
+/* ===== Dark theme ===== */
+.dark-theme {
+    background-color: #0f1720;
+    color: #e5e7eb;
+}
+
+.dark-theme #main-navbar {
+    background-color: #0b1220;
+    border-bottom: 1px solid #1f2937;
+    color: #e5e7eb;
+}
+
+.dark-theme .nav-brand,
+.dark-theme .nav-links a,
+.dark-theme #welcome-message {
+    color: #e5e7eb;
+}
+
+.dark-theme .nav-icon-btn:hover {
+    background-color: rgba(255,255,255,0.04);
+}
+
+.dark-theme .ui.container,
+.dark-theme #calendar,
+.dark-theme #search-bar-container,
+.dark-theme .flat-input,
+.dark-theme #agenda-table-view,
+.dark-theme .tooltip,
+.dark-theme .ui.popup {
+    background-color: #0b1220;
+    color: #e5e7eb;
+    border-color: #1f2937;
+}
+
+.dark-theme .flat-input {
+    background-color: #07111a;
+    border: 1px solid #1f2a34;
+    color: #e5e7eb;
+}
+
+.dark-theme .section-title,
+.dark-theme #current-period,
+.dark-theme #search-area-wrapper h3,
+.dark-theme .ui.popup .header {
+    color: #e5e7eb;
+}
+
+/* Ajuste para ícones (inverte para visual melhor no dark) */
+.dark-theme .nav-icon-btn img {
+    filter: invert(1) brightness(1.2);
+}
+
+/* Garante contraste nos eventos do fullcalendar */
+.dark-theme .fc-event,
+.dark-theme .fc-day-number,
+.dark-theme .fc-head th {
+    color: #e5e7eb !important;
+}
