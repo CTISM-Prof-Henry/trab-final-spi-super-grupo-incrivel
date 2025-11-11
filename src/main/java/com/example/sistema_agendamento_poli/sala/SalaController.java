@@ -1,12 +1,9 @@
 package com.example.sistema_agendamento_poli.sala;
 
 // Imports do Spring Web otimizados
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,10 +23,9 @@ public class SalaController {
 
         // espero que funcione kkkkkk
     // --- Novo endpoint: redireciona para a página estática sala.html ---
-    @GetMapping("/pagina")
-    public ResponseEntity<Void> abrirPaginaSala() {
-        URI uri = URI.create("/Front-end/telaSala/sala.html");
-        return ResponseEntity.status(HttpStatus.FOUND).location(uri).build();
+    @GetMapping("/salas/pagina")
+    public String abrirPaginaSala() {
+        return "Front-end/telaSala/sala.html"; 
     }
 
     // --- MÉTODOS DE CONSULTA (Retornam Entidade) ---

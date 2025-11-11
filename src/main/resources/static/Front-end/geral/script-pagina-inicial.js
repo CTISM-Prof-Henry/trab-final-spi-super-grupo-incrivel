@@ -1,36 +1,3 @@
-
-// testar depois
-document.addEventListener('DOMContentLoaded', function () {
-  async function loadAgendas() {
-    try {
-      const res = await fetch('/api/agenda');
-      if (!res.ok) throw new Error('Falha ao carregar agendamentos');
-      const agendas = await res.json();
-      const tbody = document.querySelector('table.table tbody');
-      if (!tbody) return;
-      tbody.innerHTML = agendas.map(a => {
-        const sala = a.salaCodigo || (a.sala && a.sala.codigo) || '';
-        const data = a.dataHora || a.dataFormatada || a.data || '';
-        const descricao = a.descricao || '';
-        const solicitante = a.solicitante || '';
-        const status = a.status || '';
-        return `
-          <tr>
-            <td>${sala}</td>
-            <td>${data}</td>
-            <td>${descricao}</td>
-            <td>${solicitante}</td>
-            <td>${status}</td>
-          </tr>`;
-      }).join('');
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  loadAgendas();
-});
-
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('toggleTheme').addEventListener('click', function() {
         document.body.classList.toggle('bg-dark');
