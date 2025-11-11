@@ -1,2 +1,0 @@
-Aqui voce vai colocar html, css e javascript que vai ser compartilhado para 2 ou mais telas
-(Apague-me quando comecar a trabalhar aqui)

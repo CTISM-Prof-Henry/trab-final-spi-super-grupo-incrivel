@@ -1,2 +1,0 @@
-Aqui voce vai colocar html, css e javascript apenas relacioanda a tela de login
-(Apague-me quando comecar a trabalhar aqui)
