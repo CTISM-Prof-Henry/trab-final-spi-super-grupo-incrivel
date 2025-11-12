@@ -27,14 +27,7 @@
     <nav class="navbar navbar-expand-lg bg-azul">
 
         <div class="container-fluid ">
-
-            <!-- mudar a fonte? -->
-
-            
-            <a class="navbar-brand fs-3 fw-bold text-white libertinusKeyboardRegular" href="#">UFSM</a>
-            <!-- corrigir o logo e verificar algumas fontes -->
-            <!-- <a class="navbar-brand fs-4 fw-bold text-white permanentMarkerRegular" href="#">Colégio Politécnico</a> --> 
-
+            <a class="navbar-brand fs-3 fw-bold text-white libertinusKeyboardRegular" href="../geral/pagina-inicial.html">UFSM</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -44,19 +37,17 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                    <!-- Deixar ativo? Verificar depois -->
                     <li class="nav-item me-3">
-                        <a class="nav-link active text-white" aria-current="page" href="#">Salas</a>
+                        <a class="nav-link active text-white" aria-current="page" href="../telaSala/sala.html">Salas</a>
                     </li>
 
                     <li class="nav-item me-3">
-                        <a class="nav-link text-white" href="#">Agendar</a>
+                        <a class="nav-link text-white" href="../telaAgendamento/agendamento.html">Agendar</a>
                     </li>
                     <li class="nav-item me-3">
-                        <a class="nav-link text-white" href="#">Buscar</a>
+                        <a class="nav-link text-white" href="../telaSala/sala.html">Buscar</a>
                     </li>
 
-                    <!-- Está em dropdown, verificar se podemos fazer alguma coisa com ele -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white me-3" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -72,19 +63,21 @@
                         </ul>
                     </li>
                 </ul>
-                <a href="#" class="tiraEfeitoLink"><span class="me-2 navbar-text ms-auto fw-semibold text-white ">Olá,
-                        Usuário</span></a>
 
+                <!-- saudação -->
+                <a href="#" class="tiraEfeitoLink">
+                    <span id="welcome-message" class="me-2 navbar-text ms-auto fw-semibold text-white">Olá, Usuário</span>
+                </a>
 
-                <img class="" src="../imagens/icons8-lembrete-de-compromissos-24.png" alt="">
-
-                </ul>
+                <!-- ícone de notificações -> abre notificacao.html -->
+                <a href="../telaNotificacao/notificacao.html" class="ms-2 me-3" title="Notificações">
+                    <img src="../imagens/icons8-lembrete-de-compromissos-24.png" alt="Notificações" style="height:24px;">
+                </a>
 
             </div>
         </div>
 
     <button id="toggleTheme" class="btn btn-outline-light m-2">Tema</button>
-
 
     </nav>
 
@@ -170,42 +163,8 @@
                                 <th scope="col">Status</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>G308</td>
-                                <td>18/09 - 13:30</td>
-                                <td>Aula de Filosofia</td>
-                                <td>Vinicius</td>
-                                <td>Ativo</td>
-                            </tr>
-                            <tr>
-                                <td>G108</td>
-                                <td>18/09 - 14:30</td>
-                                <td>Aula de Francês</td>
-                                <td>Julia</td>
-                                <td>Ativo</td>
-                            </tr>
-                            <tr>
-                                <td>3509</td>
-                                <td>18/09 - 10:30</td>
-                                <td>Aula de Surf</td>
-                                <td>Letícia</td>
-                                <td>Agendado</td>
-                            </tr>
-                            <tr>
-                                <td>E209</td>
-                                <td>18/09 - 10:30</td>
-                                <td>Aula de Pirotecnia</td>
-                                <td>Silva</td>
-                                <td>Agendado</td>
-                            </tr>
-                            <tr>
-                                <td>E208</td>
-                                <td>18/09 - 10:30</td>
-                                <td>Aula de Gastronomia</td>
-                                <td>Claudinei</td>
-                                <td>Agendado</td>
-                            </tr>
+                        <tbody id="salasBody">
+                            <!-- preenchido por JS -->
                         </tbody>
                     </table>
                 </div>
@@ -221,6 +180,4 @@
 </body>
 
 <script src="./script-pagina-inicial.js"></script>
-
-
 </html>

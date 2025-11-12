@@ -1,6 +1,5 @@
 package com.example.sistema_agendamento_poli.bloco;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +10,6 @@ public class BlocoService {
 
     private final BlocoRepository blocoRepository;
 
-    @Autowired
     public BlocoService(BlocoRepository blocoRepository) {
         this.blocoRepository = blocoRepository;
     }

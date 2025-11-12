@@ -2,7 +2,6 @@ package com.example.sistema_agendamento_poli.agenda;
 
 import com.example.sistema_agendamento_poli.sala.Sala;
 import com.example.sistema_agendamento_poli.usuario.Usuario;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ public class AgendaService {
 
     private final AgendaRepository agendaRepository;
 
-    @Autowired
     public AgendaService(AgendaRepository agendaRepository) {
         this.agendaRepository = agendaRepository;
     }

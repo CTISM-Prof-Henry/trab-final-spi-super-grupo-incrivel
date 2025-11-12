@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', function() {
     async function carregarSalas() {
         if (!salaSelect) return;
         try {
-            const resp = await fetch('/salas/listar');
-            if (!resp.ok) throw new Error('Falha ao listar salas');
+            const resp = await fetch(`${APP_BASE}/salas/listar`);
+            if (!resp.ok) throw new Error('Falha ao listar salas: ' + resp.status);
             const salas = await resp.json();
             salaSelect.innerHTML = '<option value="">Selecione uma sala</option>';
             salas.forEach(s => {
@@ -77,8 +77,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 opt.textContent = nome;
                 salaSelect.appendChild(opt);
             });
+            salaSelect.disabled = false;
         } catch (err) {
             console.error('Erro ao carregar salas:', err);
+            salaSelect.innerHTML = '<option value="">Erro ao carregar salas</option>';
+            salaSelect.disabled = true;
         }
     }
 

@@ -98,3 +98,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('loginForm');
+    if (!form) return;
+
+    form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        const usuario = document.getElementById('usuario')?.value?.trim() || '';
+        const remember = document.getElementById('remember')?.checked;
+
+        if (!usuario) {
+            alert('Informe o nome de usuário.');
+            return;
+        }
+
+        if (remember) {
+            localStorage.setItem('username', usuario);
+        } else {
+            sessionStorage.setItem('username', usuario);
+        }
+
+        // ajustar caso seu context-path seja diferente
+        const APP_BASE = '/sistema_agendamento_poli';
+        window.location.href = `${APP_BASE}/geral/pagina-inicial.html`;
+    });
+});

@@ -4,7 +4,6 @@ import com.example.sistema_agendamento_poli.agenda.Agenda;
 import com.example.sistema_agendamento_poli.usuario.Usuario;
 import com.example.sistema_agendamento_poli.agenda.AgendaRepository;
 import com.example.sistema_agendamento_poli.usuario.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +17,6 @@ public class NotificacaoService {
     private final UsuarioRepository usuarioRepository;
     private final AgendaRepository agendaRepository;
 
-    @Autowired
     public NotificacaoService(
             NotificacaoRepository notificacaoRepository,
             UsuarioRepository usuarioRepository,

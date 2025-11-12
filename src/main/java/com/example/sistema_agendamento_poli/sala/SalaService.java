@@ -2,7 +2,6 @@ package com.example.sistema_agendamento_poli.sala;
 
 import com.example.sistema_agendamento_poli.bloco.Bloco;
 import com.example.sistema_agendamento_poli.bloco.BlocoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +13,6 @@ public class SalaService {
     private final SalaRepository salaRepository;
     private final BlocoRepository blocoRepository; // Adicionado para buscar a FK
 
-    @Autowired
     public SalaService(SalaRepository salaRepository, BlocoRepository blocoRepository) {
         this.salaRepository = salaRepository;
         this.blocoRepository = blocoRepository;
