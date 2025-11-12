@@ -32,10 +32,11 @@
                 <span id="theme-icon">🌙</span>
             </button>
 
-            <a href="../telaNotificacao/notificacao.html">
-            <button class="nav-icon-btn notification-btn" aria-label=" Notificações">
-                <img src="../imagens/sino.png" alt="Notificações"> </button></a>
-                
+            <!-- botão de notificações: agora tem badge dinamica (unreadCount) -->
+            <button class="nav-icon-btn notification-btn" aria-label="Notificações" title="Notificações">
+                <img src="../imagens/sino.png" alt="Notificações">
+                <span id="unreadCount" class="unread-badge" aria-live="polite" style="display:none;"></span>
+            </button>
 
             <button class="nav-icon-btn user-btn" aria-label="Opções do Usuário">
                 <img src="../imagens/config.png" alt=" Configurações do Usuário">

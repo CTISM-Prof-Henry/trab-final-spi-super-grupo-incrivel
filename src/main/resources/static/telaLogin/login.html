@@ -50,7 +50,7 @@
                     <div class="card border-2 cinza" style="width: 100%; max-width: 420px; border-color: #fff;">
                         <div class="card-body p-5">
                             
-                            <form>
+                            <form id="loginForm">
                                 <div class="mb-2">
                                     <label for="usuario" class="form-label fw-bold">Usuário</label>
                                     <input type="text" class="form-control form-control-lg" id="usuario" placeholder="Usuário" required>
@@ -73,12 +73,8 @@
                                     </label>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold"><a href="../geral/pagina-inicial.html" class="text-white text-decoration-none">Entrar</a></button>
-
-                                <!-- Perguntar depois se é uma boa colocar 'Esqueceu sua senha?' -->
-                                <!-- <div class="text-center">
-                                    <a href="#" class="text-decoration-none">Esqueceu sua senha?</a>
-                                </div> -->
+                                <!-- botão agora submete por JS e salva o usuário -->
+                                <button id="loginBtn" type="submit" class="btn btn-primary btn-lg w-100 fw-bold">Entrar</button>
                             </form>
                         </div>
                     </div>
@@ -100,6 +96,25 @@
 
 
     <script src="./script.js"></script>
+    <!-- adiciona script pequeno para salvar usuário e redirecionar -->
+    <script>
+      (function () {
+        const form = document.getElementById('loginForm');
+        form && form.addEventListener('submit', function (ev) {
+          ev.preventDefault();
+          const usuario = document.getElementById('usuario')?.value || '';
+          // se quiser "lembrar" usar localStorage quando checkbox estiver marcado
+          const remember = document.getElementById('remember')?.checked;
+          if (remember) {
+            localStorage.setItem('username', usuario);
+          } else {
+            sessionStorage.setItem('username', usuario);
+          }
+          // redireciona para a página principal (mantive o destino original)
+          window.location.href = '../geral/pagina-inicial.html';
+        });
+      })();
+    </script>
 </body>
 
 </html>

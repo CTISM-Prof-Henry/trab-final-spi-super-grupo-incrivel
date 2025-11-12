@@ -107,46 +107,62 @@
                 <form>
                     <div class="row g-2">
                         <div class="col">
-                            <div class="col">
-                                <label for="" class="form-label fw-bold">Sala</label>
-<!--                                COLOCAR O ID-->
-                                <select class="form-select form-select-sm" id="">
-                                    <option value="">Selecione</option>
-                                    <option value="agendado">Agendado</option>
-                                    <option value="livre">Livre</option>
-                                    <option value="ocupado">Ocupado</option>
-                                </select>
+                            <div class="row g-2 align-items-end">
+                                <div class="col">
+                                    <label for="sala" class="form-label fw-bold">Sala</label>
+                                    <select class="form-select form-select-sm" id="sala">
+                                        <option value="">Selecione</option>
+                                        <option value="agendado">Agendado</option>
+                                        <option value="livre">Livre</option>
+                                        <option value="ocupado">Ocupado</option>
+                                    </select>
+                                </div>
+
+                                <div class="col">
+                                    <label for="" class="form-label fw-bold"></label>
+<!--                                    COLOCAR ID-->
+                                    <select class="form-select form-select-sm" id="">
+                                        <option value="">Selecione</option>
+                                        <option value="agendado">Agendado</option>
+                                        <option value="livre">Livre</option>
+                                        <option value="ocupado">Ocupado</option>
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <label for="de" class="form-label fw-bold ">De</label>
+                                    <input type="time" class="form-control form-control-sm "
+                                           id="de">
+
+                                </div>
+
+                                <div class="col-3">
+                                    <label for="ate" class="form-label fw-bold">Até</label>
+                                    <input type="time" class="form-control form-control-sm "
+                                           id="ate">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col">
-                            <label for="de" class="form-label fw-bold ">De</label>
-                            <input type="time" class="form-control form-control-sm libertinusKeyboardRegular fs-5"
-                                   id="de">
-                        </div>
-                        <div class="col">
-                            <label for="ate" class="form-label fw-bold">Até</label>
-                            <input type="time" class="form-control form-control-sm libertinusKeyboardRegular fs-5"
-                                   id="ate">
-                        </div>
 
-                        <div class="row g-2">
+
+
+
+
+
+                        <div class="row g-2 ">
                             <div class="col">
                                 <label for="dias" class="form-label fw-bold">Dias</label>
-                                <input type="date" class="form-control form-control-sm" id="dias" name="dias">
+                                <input type="date" class="form-control form-control-sm w-25" id="dias" name="dias">
                             </div>
 
 
-                           <div class="col">
-
-                               <button class="">Cancelar</button>
-                           </div>
-
-                            <div>
-                                <button>Solicitar</button>
+                            <div class="d-flex justify-content-end gap-2 mt-3">
+                                <button type="button" class="btn cinza btn-sm">Cancelar</button>
+                                <button type="submit" class="btn bg-azul btn-sm">Solicitar</button>
                             </div>
+
 
                         </div>
+                    </div>
                     </div>
                 </form>
             </div>
@@ -161,7 +177,7 @@
 
 </body>
 
-<script src="./script-pagina-inicial.js"></script>
+<script src="./script-agendamento.js"></script>
 
 
 </html>
