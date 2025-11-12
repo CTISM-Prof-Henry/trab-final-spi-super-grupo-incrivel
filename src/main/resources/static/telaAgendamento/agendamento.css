@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.cinza{
+    background-color:#e7eaed;
+}
+
+.bg-azul{
+    background-color: #5893be;
+}
+
+
+.tiraEfeitoLink{
+    text-decoration: none;
+}
+
+.libertinusKeyboardRegular {
+    font-family: "Libertinus Keyboard", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.permanentMarkerRegular {
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.outro-cinza{
+    background-color: #e5e5e5;
+}
+
+.corBorda{
+    border: 1px solid;
+}
+

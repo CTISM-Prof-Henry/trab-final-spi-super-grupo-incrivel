@@ -1,4 +1,4 @@
-// --- SEU CÓDIGO ANTIGO (tema escuro) ---
+//
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("toggleTheme").addEventListener("click", function () {
     document.body.classList.toggle("bg-dark");
