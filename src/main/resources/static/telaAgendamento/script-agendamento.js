@@ -68,23 +68,86 @@ document.addEventListener('DOMContentLoaded', function() {
         const u = getStoredUser();
         if (u && u.id) return u.id;
         const username = u?.username;
-        if (!username) return null;
-        try {
-            const resp = await fetch(`${APP_BASE}/usuarios/busca/identificador/${encodeURIComponent(username)}`);
-            if (!resp.ok) return null;
-            const usuarioObj = await resp.json();
-            const id = usuarioObj?.id ?? (Array.isArray(usuarioObj) && usuarioObj[0]?.id) ?? null;
-            if (id && window.setCurrentUser) {
-                window.setCurrentUser({ id: id, username: username }, !!localStorage.getItem('username'));
-            } else if (id) {
-                // fallback: persist in sessionStorage
-                sessionStorage.setItem('userId', String(id));
+        // se existir username, tenta recuperar pelo backend
+        if (username) {
+            try {
+                const resp = await fetch(`${APP_BASE}/usuarios/busca/identificador/${encodeURIComponent(username)}`);
+                if (resp.ok) {
+                    const usuarioObj = await resp.json();
+                    const id = usuarioObj?.id ?? (Array.isArray(usuarioObj) && usuarioObj[0]?.id) ?? null;
+                    if (id && window.setCurrentUser) {
+                        window.setCurrentUser({ id: id, username: username }, !!localStorage.getItem('username'));
+                    } else if (id) {
+                        sessionStorage.setItem('userId', String(id));
+                    }
+                    return id;
+                }
+            } catch (err) {
+                console.error('Erro ao buscar userId por username:', err);
             }
-            return id;
-        } catch (err) {
-            console.error('Erro ao garantir userId:', err);
-            return null;
         }
+
+        // fallback: cria um usuário "anônimo" no backend e retorna o id
+        try {
+            const anonIdent = 'usuario_anonimo';
+            const dto = {
+                nome: 'Usuário Anônimo',
+                telefone: '',
+                email: `anon@local`,
+                identificador: anonIdent,
+                senha: ''
+            };
+            const createResp = await fetch(`${APP_BASE}/usuarios`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dto)
+            });
+
+            // tenta obter usuário criado (pode retornar body JSON ou apenas Location)
+            if (createResp.ok) {
+                // se body JSON
+                if (createResp.headers.get('Content-Type')?.includes('application/json')) {
+                    const created = await createResp.json();
+                    const id = created?.id ?? null;
+                    if (id) {
+                        sessionStorage.setItem('userId', String(id));
+                        sessionStorage.setItem('username', 'Usuário Anônimo');
+                        return id;
+                    }
+                }
+                // se Location presente
+                const loc = createResp.headers.get('Location');
+                if (loc) {
+                    const url = loc.startsWith('http') ? loc : `${APP_BASE}${loc.startsWith('/') ? '' : '/'}${loc}`;
+                    const getResp = await fetch(url);
+                    if (getResp.ok) {
+                        const created = await getResp.json();
+                        const id = created?.id ?? null;
+                        if (id) {
+                            sessionStorage.setItem('userId', String(id));
+                            sessionStorage.setItem('username', 'Usuário Anônimo');
+                            return id;
+                        }
+                    }
+                }
+            } else {
+                // se criação falhar (p.ex. por duplicidade), tentar buscar o usuário anônimo existente
+                const lookup = await fetch(`${APP_BASE}/usuarios/busca/identificador/${encodeURIComponent('usuario_anonimo')}`);
+                if (lookup.ok) {
+                    const obj = await lookup.json();
+                    const id = obj?.id ?? (Array.isArray(obj) && obj[0]?.id) ?? null;
+                    if (id) {
+                        sessionStorage.setItem('userId', String(id));
+                        sessionStorage.setItem('username', 'Usuário Anônimo');
+                        return id;
+                    }
+                }
+            }
+        } catch (e) {
+            console.error('Erro ao criar usuário anônimo:', e);
+        }
+
+        return null;
     }
 
     // carrega opções de salas (/salas/listar)

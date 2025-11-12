@@ -103,6 +103,35 @@ document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('loginForm');
   if (!form) return;
 
+  async function fetchCreatedUser(resp, identificador, APP_BASE) {
+    try {
+      // se o response já tiver JSON no body, usa
+      const ct = resp.headers.get('Content-Type') || '';
+      if (ct.includes('application/json')) {
+        return await resp.json();
+      }
+      // se Location presente, busca o recurso criado
+      const loc = resp.headers.get('Location');
+      if (loc) {
+        const url = loc.startsWith('http') ? loc : `${APP_BASE}${loc.startsWith('/') ? '' : '/'}${loc}`;
+        const getResp = await fetch(url);
+        if (getResp.ok) return await getResp.json();
+      }
+    } catch (e) {
+      console.error('Erro ao obter usuário criado (body/Location):', e);
+    }
+
+    // fallback: sempre tentar buscar pelo identificador
+    try {
+      const lookup = await fetch(`${APP_BASE}/usuarios/busca/identificador/${encodeURIComponent(identificador)}`);
+      if (lookup.ok) return await lookup.json();
+    } catch (e) {
+      console.error('Erro no lookup por identificador:', e);
+    }
+
+    return null;
+  }
+
   form.addEventListener('submit', async function (ev) {
     ev.preventDefault();
     const identificador = document.getElementById('usuario')?.value?.trim() || '';
@@ -123,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     try {
-      // Tenta criar sempre; se já existir, tenta buscar como fallback
+      // tenta criar (se já existir, controller pode retornar 4xx)
       let resp = await fetch(`${APP_BASE}/usuarios`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -131,10 +160,11 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       let usuarioObj = null;
-      if (resp.ok) {
-        usuarioObj = await resp.json();
-      } else {
-        // fallback: buscar por identificador (caso criação falhe por duplicidade)
+      // usa a função que lida com body/Location/fallback
+      usuarioObj = await fetchCreatedUser(resp, identificador, APP_BASE);
+
+      // se criação falhou e fetchCreatedUser não recuperou, tenta lookup direto
+      if (!usuarioObj) {
         const lookup = await fetch(`${APP_BASE}/usuarios/busca/identificador/${encodeURIComponent(identificador)}`);
         if (lookup.ok) usuarioObj = await lookup.json();
       }
@@ -147,7 +177,6 @@ document.addEventListener('DOMContentLoaded', function () {
       const id = usuarioObj.id ?? (Array.isArray(usuarioObj) && usuarioObj[0]?.id) ?? null;
       const nome = usuarioObj.nome ?? identificador;
 
-      // usa API compartilhada se disponível
       if (window.setCurrentUser) {
         window.setCurrentUser({ id: id, username: nome }, remember);
       } else {
@@ -160,7 +189,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }
 
-      // redireciona para página inicial usando context-path
       window.location.href = `${APP_BASE}/geral/pagina-inicial.html`;
     } catch (err) {
       console.error('Erro no login:', err);
