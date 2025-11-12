@@ -17,12 +17,14 @@ import java.util.Optional;
 @RequestMapping("/salas")
 public class SalaController {
 
-    private SalaService salaService;
+    private final SalaService salaService;
     public SalaController(SalaService salaService) {
         this.salaService = salaService;}
 
+
     // --- MÉTODOS DE CONSULTA (Retornam Entidade) ---
 
+//    listar as salas
     @GetMapping("/listar")
     public List<Sala> listar() {
         return this.salaService.listarSalas();
