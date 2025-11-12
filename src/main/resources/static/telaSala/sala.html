@@ -7,76 +7,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css">
     </head>
 <body>
-    
-    <header id="main-navbar">
-        <div class="nav-left">
-            <a href="../geral/pagina-inicial.html" class="nav-brand">UFSM</a>
-            <nav class="nav-links">
-                <a href="../telaSala/sala.html">Salas</a>
-                <a href="../telaAgendamento/agendamento.html">Agendar</a>
-                <a href="../telaSala/sala.html"><b>Buscar</b></a>
-                <a href="../geral/pagina-inicial.html">Meus Agendamentos</a>
-            </nav>
-        </div>
-        <div class="nav-right">
-            <span id="welcome-message">Olá, USUARIO</span>
-
-            <!-- Botão alternar tema -->
-            <button id="theme-toggle-btn" class="nav-icon-btn" aria-label="Alternar tema" title="Alternar tema">
-                <span id="theme-icon">🌙</span>
-            </button>
-
-            <a href="../telaNotificacao/notificacao.html">
-                <button class="nav-icon-btn notification-btn" aria-label="Notificações">
-                    <img src="../imagens/sino.png" alt="Notificações">
-                </button>
-            </a>
-
-            <button class="nav-icon-btn user-btn" aria-label="Opções do Usuário">
-                <img src="../imagens/config.png" alt="Configurações do Usuário">
-            </button>
-        </div>
-    </header>
-    
-    <main>
-        <div id="search-area-wrapper"> 
-            <h3 class="section-title">BUSCAR CALENDÁRIO DE SALA</h3>
-            <section id="search-bar-container">
-                <div class="search-column">
-                    <label for="bloco-select">Bloco</label>
-                    <select id="bloco-select" class="flat-input" 
-                            onchange="filtrarSalas(this.value)">
-                        <option value="">Selecione um Bloco</option>
-                    </select>
-                </div>
-                <div class="search-column">
-                    <label for="sala-select">Sala</label>
-                    <select id="sala-select" class="flat-input" 
-                            onchange="buscarCalendario(document.getElementById('bloco-select').value, this.value)" 
-                            disabled>
-                        <option value="">Selecione uma Sala</option>
-                    </select>
-                </div>
-            </section>
-            <p id="search-alert" style="margin-top: 10px; color: red;"></p>
-        </div>
-
-        <section id="agenda-view" style="margin-top: 30px;">
-             <div class="ui container">
-                <div class="ui grid">
-                    <div class="ui sixteen wide column">
-                        <div id="calendar"></div>
-                    </div>
-                </div>
-            </div>
-            <p id="loading-message" style="display: none; text-align: center; margin-top: 20px;">Carregando agenda...</p>
-        </section>
-
-        <div id="agendamento-tooltip" class="tooltip"></div>
-        
-    </main>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+  <script src="../js/init-user.js"></script>
+  <!-- seus outros scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/locale/pt-br.js'></script>

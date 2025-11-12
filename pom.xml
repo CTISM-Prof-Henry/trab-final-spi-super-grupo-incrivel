@@ -53,11 +53,8 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-<!-- NÃO SEI DIREITO SE ESTÁ CORRETO, VERIFICAR -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
+
+
 
 
         <dependency>

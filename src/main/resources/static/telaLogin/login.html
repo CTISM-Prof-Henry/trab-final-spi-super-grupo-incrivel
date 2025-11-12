@@ -95,8 +95,79 @@
     </div>
 
 
+    <script src="../js/init-user.js"></script>
     <script src="./script.js"></script>
-    <!-- adiciona script pequeno para salvar usuário e redirecionar -->
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const APP_BASE = '/sistema_agendamento_poli';
+  const form = document.getElementById('loginForm');
+  if (!form) return;
 
+  form.addEventListener('submit', async function (ev) {
+    ev.preventDefault();
+    const identificador = document.getElementById('usuario')?.value?.trim() || '';
+    const senha = document.getElementById('password')?.value || '';
+    const remember = !!document.getElementById('remember')?.checked;
+
+    if (!identificador || !senha) {
+      alert('Informe usuário e senha.');
+      return;
+    }
+
+    const dto = {
+      nome: identificador,
+      telefone: '',
+      email: `${identificador}@example.com`,
+      identificador: identificador,
+      senha: senha
+    };
+
+    try {
+      // Tenta criar sempre; se já existir, tenta buscar como fallback
+      let resp = await fetch(`${APP_BASE}/usuarios`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dto)
+      });
+
+      let usuarioObj = null;
+      if (resp.ok) {
+        usuarioObj = await resp.json();
+      } else {
+        // fallback: buscar por identificador (caso criação falhe por duplicidade)
+        const lookup = await fetch(`${APP_BASE}/usuarios/busca/identificador/${encodeURIComponent(identificador)}`);
+        if (lookup.ok) usuarioObj = await lookup.json();
+      }
+
+      if (!usuarioObj) {
+        alert('Não foi possível criar ou recuperar o usuário.');
+        return;
+      }
+
+      const id = usuarioObj.id ?? (Array.isArray(usuarioObj) && usuarioObj[0]?.id) ?? null;
+      const nome = usuarioObj.nome ?? identificador;
+
+      // usa API compartilhada se disponível
+      if (window.setCurrentUser) {
+        window.setCurrentUser({ id: id, username: nome }, remember);
+      } else {
+        if (remember) {
+          localStorage.setItem('username', nome);
+          if (id !== null) localStorage.setItem('userId', String(id));
+        } else {
+          sessionStorage.setItem('username', nome);
+          if (id !== null) sessionStorage.setItem('userId', String(id));
+        }
+      }
+
+      // redireciona para página inicial usando context-path
+      window.location.href = `${APP_BASE}/geral/pagina-inicial.html`;
+    } catch (err) {
+      console.error('Erro no login:', err);
+      alert('Erro ao conectar com o backend.');
+    }
+  });
+});
+</script>
 </body>
 </html>

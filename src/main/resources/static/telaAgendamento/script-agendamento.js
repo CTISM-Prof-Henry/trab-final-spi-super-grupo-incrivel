@@ -49,17 +49,43 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // === integração com backend ===
+    const APP_BASE = '/sistema_agendamento_poli';
     const salaSelect = document.getElementById('sala');
     const blocoSelect = document.getElementById('bloco');
     const form = document.getElementById('agendaForm');
     const agendasBody = document.getElementById('agendasBody');
     const cancelBtn = document.getElementById('cancelBtn');
 
-    // lê usuário salvo (caso tenha login frontend)
-    const savedUser = sessionStorage.getItem('username') || localStorage.getItem('username') || 'anônimo';
-    const savedUserId = sessionStorage.getItem('userId') || localStorage.getItem('userId') || (Number.isInteger(Number(savedUser)) ? Number(savedUser) : null);
+    // lê usuário salvo via init-user.js (window.getCurrentUser)
+    function getStoredUser() {
+        if (window.getCurrentUser) return window.getCurrentUser();
+        const nome = sessionStorage.getItem('username') || localStorage.getItem('username') || null;
+        const idRaw = sessionStorage.getItem('userId') || localStorage.getItem('userId') || null;
+        return { id: idRaw ? Number(idRaw) : null, username: nome };
+    }
 
-    const APP_BASE = '/sistema_agendamento_poli'; // ajuste conforme application.properties
+    async function ensureUserId() {
+        const u = getStoredUser();
+        if (u && u.id) return u.id;
+        const username = u?.username;
+        if (!username) return null;
+        try {
+            const resp = await fetch(`${APP_BASE}/usuarios/busca/identificador/${encodeURIComponent(username)}`);
+            if (!resp.ok) return null;
+            const usuarioObj = await resp.json();
+            const id = usuarioObj?.id ?? (Array.isArray(usuarioObj) && usuarioObj[0]?.id) ?? null;
+            if (id && window.setCurrentUser) {
+                window.setCurrentUser({ id: id, username: username }, !!localStorage.getItem('username'));
+            } else if (id) {
+                // fallback: persist in sessionStorage
+                sessionStorage.setItem('userId', String(id));
+            }
+            return id;
+        } catch (err) {
+            console.error('Erro ao garantir userId:', err);
+            return null;
+        }
+    }
 
     // carrega opções de salas (/salas/listar)
     async function carregarSalas() {
@@ -150,14 +176,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            if (!savedUserId) {
+            // garante userId antes de enviar
+            const usuarioId = await ensureUserId();
+            if (!usuarioId) {
                 alert('ID do usuário não disponível. Faça login para prosseguir.');
                 return;
             }
 
             const dto = {
                 salaId: Number(salaValue),
-                usuarioId: Number(savedUserId),
+                usuarioId: Number(usuarioId),
                 data: dataValue,               // "YYYY-MM-DD" -> LocalDate
                 horarioInicio: deValue,        // "HH:mm" -> LocalTime
                 horarioFim: ateValue,          // "HH:mm" -> LocalTime
