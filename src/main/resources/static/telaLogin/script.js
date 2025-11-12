@@ -4,26 +4,31 @@ function funcao_clique() {
 
 // Código para visualizar e ocultar senha 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('togglePassword').addEventListener('click', function() {
-        const passwordField = document.getElementById('password');
-        const eyeIcon = document.getElementById('eyeIcon');
-        
-        if (passwordField.type === 'password') {
-            passwordField.type = 'text';
-            eyeIcon.classList.remove('fa-eye');
-            eyeIcon.classList.add('fa-eye-slash');
-        } else {
-            passwordField.type = 'password';
-            eyeIcon.classList.remove('fa-eye-slash');
-            eyeIcon.classList.add('fa-eye');
-        }
-
-
-    });
+    const togglePasswordBtn = document.getElementById('togglePassword');
+    if (togglePasswordBtn) {
+        togglePasswordBtn.addEventListener('click', function() {
+            const passwordField = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (!passwordField || !eyeIcon) return;
+            
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        });
+    }
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('toggleTheme').addEventListener('click', function() {
+    const themeBtn = document.getElementById('toggleTheme');
+    if (!themeBtn) return;
+
+    themeBtn.addEventListener('click', function() {
         const isDark = !document.body.classList.contains('bg-dark');
 
         // Body
@@ -79,16 +84,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Botão de tema
-        const themeBtn = document.getElementById('toggleTheme');
-        if (themeBtn) {
+        const themeBtnLocal = document.getElementById('toggleTheme');
+        if (themeBtnLocal) {
             if (isDark) {
-                themeBtn.classList.add('bg-dark', 'text-white');
-                themeBtn.classList.remove('cinza', 'btn-outline-dark');
-                themeBtn.style.borderColor = '#fff';
+                themeBtnLocal.classList.add('bg-dark', 'text-white');
+                themeBtnLocal.classList.remove('cinza', 'btn-outline-dark');
+                themeBtnLocal.style.borderColor = '#fff';
             } else {
-                themeBtn.classList.remove('bg-dark', 'text-white');
-                themeBtn.classList.add('cinza', 'btn-outline-dark');
-                themeBtn.style.borderColor = '';
+                themeBtnLocal.classList.remove('bg-dark', 'text-white');
+                themeBtnLocal.classList.add('cinza', 'btn-outline-dark');
+                themeBtnLocal.style.borderColor = '';
             }
         }
     });

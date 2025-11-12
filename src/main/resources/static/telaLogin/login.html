@@ -97,24 +97,6 @@
 
     <script src="./script.js"></script>
     <!-- adiciona script pequeno para salvar usuário e redirecionar -->
-    <script>
-      (function () {
-        const form = document.getElementById('loginForm');
-        form && form.addEventListener('submit', function (ev) {
-          ev.preventDefault();
-          const usuario = document.getElementById('usuario')?.value || '';
-          // se quiser "lembrar" usar localStorage quando checkbox estiver marcado
-          const remember = document.getElementById('remember')?.checked;
-          if (remember) {
-            localStorage.setItem('username', usuario);
-          } else {
-            sessionStorage.setItem('username', usuario);
-          }
-          // redireciona para a página principal (mantive o destino original)
-          window.location.href = '../geral/pagina-inicial.html';
-        });
-      })();
-    </script>
-</body>
 
+</body>
 </html>
