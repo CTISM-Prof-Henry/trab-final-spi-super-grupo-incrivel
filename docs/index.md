@@ -115,110 +115,42 @@ usuário "Teste" será deletado.
 
 ### Diagrama de caso de uso
 
-```mermaid
-graph TD
-
-%% -------------------- Atores --------------------
-    subgraph  Atores
-        Admin((Administrador))
-        Professor((Professor))
-        Aluno((Aluno))
-    end
-
-%% -------------------- Tela inicial e navegação --------------------
-    subgraph  Tela Inicial
-        inicial[tela inicial]
-        login[tela de login]
-        visualizar_mapa[Visualizar mapa do Politécnico]
-        inicial --> login
-        inicial --> visualizar_mapa
-        Admin--> inicial
-        Professor--> inicial
-        Aluno--> inicial
-    end
-
-%% -------------------- Busca e visualização --------------------
-    subgraph  Busca e Visualização de Salas
-        buscar_sala[Buscar sala por nome ou código]
-        visualizar_sala[Visualizar a agenda de uma sala]
-        inicial --> buscar_sala
-        buscar_sala --> visualizar_sala
-
-    end
-
-%% -------------------- Agendamento --------------------
-    subgraph  Agendamento e Permissões
-        pedir_agendamento[Pedir agendamento]
-        decisao_analisar[Analisar pedido]
-        agendar[Agendar sala]
-
-        Aluno --> pedir_agendamento
-        Admin --> decisao_analisar
-        Professor --> agendar
-        Admin --> agendar
-    end
-
-%% -------------------- Notificações --------------------
-    subgraph  Notificações
-        notificacoes[tela de notificações]
-        login --> notificacoes
-    end
-```
+![Diagrama de caso de uso.](img/Diagrama1.png)
 
 ### Diagrama ER
 
-```mermaid
-erDiagram
-    USUARIO {
-        INT id PK
-        STRING nome
-        STRING telefone
-        STRING email
-        STRING identificador "Matrícula ou Contrato"
-        STRING senha
-        STRING tipo "Aluno | Professor | Administrador"
-    }
-
-    BLOCO {
-        INT id PK
-        STRING nome
-        INT quantidade_salas
-    }
-
-    SALA {
-        INT id PK
-        STRING codigo
-        STRING nome
-        INT andar
-        INT bloco_id FK
-    }
-
-    AGENDA {
-        INT id PK
-        DATE data
-        TIME horario_inicio
-        TIME horario_fim
-        STRING status "Disponível | Ocupado"
-        INT sala_id FK
-        INT usuario_id FK
-    }
-
-    NOTIFICACAO {
-        INT id PK
-        STRING mensagem
-        INT usuario_id FK
-        INT agenda_id FK
-    }
-
-    BLOCO ||--o{ SALA : "contém"
-    SALA  ||--o{ AGENDA : "possui"
-    USUARIO ||--o{ AGENDA : "realiza"
-    AGENDA ||--o{ NOTIFICACAO : "gera"
-    USUARIO ||--o{ NOTIFICACAO : "recebe"
-```
+![Diagrama ER.](img/Diagrama2.png)
 
 ## Front-end do projeto
 
 ### Modo claro e escuro
 
 No canto superior direito da tela do usuário, é possivel trocar entre o modo claro e o modo escuro do programa.
+
+![Tema claro.](img/Frontend_TemaClaro.png)
+
+Tema claro.
+
+![Tema escuro.](img/Frontend_TemaEscuro.png)
+
+Tema escuro.
+
+### Calendário de visualização
+
+Enquanto a tela inicial mostrará todos os agendamentos realizados em todas as salas, é possível ter uma visão detalhada dos eventos agendados em uma determinada sala através do calendário.
+
+![Visao do calendário de visualização.](img/Frontend_Calendario.png)
+
+Selecione um bloco, e a partir daí, selecione uma das salas existentes nesse bloco. Você pode navegar os diferentes meses a partir das setas na esquerda, assim como ir ao dia atual.
+
+Também é possível ver os agendamentos realizados por semana, assim como por dia.
+
+### Agendamento de salas
+![A tela de agendamento em si.](img/Frontend_Agendamento3.png)
+Para o agendamento de salas, existem diversos mecanismos para o processo. Deve ser selecionado um intervalo de horário em que a sala será ocupada, assim como a data.
+
+![Uma demonstração da seleção de horários de agendamento.](img/Frontend_Agendamento1.gif)
+Demonstração da função de seleção de horário. 
+
+![Uma demonstração da seleção de dia de agendamento.](img/Frontend_Agendamento2.gif)
+Demonstração da função de seleção de data.
