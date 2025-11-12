@@ -27,69 +27,26 @@
 <nav class="navbar navbar-expand-lg bg-azul">
 
     <div class="container-fluid ">
-
-        <!-- mudar a fonte? -->
-
-
         <a class="navbar-brand fs-3 fw-bold text-white libertinusKeyboardRegular" href="#">UFSM</a>
-        <!-- corrigir o logo e verificar algumas fontes -->
-        <!-- <a class="navbar-brand fs-4 fw-bold text-white permanentMarkerRegular" href="#">Colégio Politécnico</a> -->
 
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                <!-- Deixar ativo? Verificar depois -->
                 <li class="nav-item me-3">
                     <a class="nav-link active text-white" aria-current="page" href="#">Salas</a>
                 </li>
-
                 <li class="nav-item me-3">
                     <a class="nav-link text-white" href="#">Agendar</a>
                 </li>
-                <li class="nav-item me-3">
-                    <a class="nav-link text-white" href="#">Buscar</a>
-                </li>
-
-                <!-- Está em dropdown, verificar se podemos fazer alguma coisa com ele -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white me-3" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Meus Agendamentos
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item text-dark" href="#">Item 1</a></li>
-                        <li><a class="dropdown-item text-dark" href="#">Item 2</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item text-dark" href="#">Item 3</a></li>
-                    </ul>
-                </li>
             </ul>
-            <a href="#" class="tiraEfeitoLink"><span class="me-2 navbar-text ms-auto fw-semibold text-white ">Olá,
-                        Usuário</span></a>
-
-
+            <a href="#" class="tiraEfeitoLink"><span class="me-2 navbar-text ms-auto fw-semibold text-white ">Olá, Usuário</span></a>
             <img class="" src="../imagens/icons8-lembrete-de-compromissos-24.png" alt="">
-
-            </ul>
-
         </div>
     </div>
 
     <button id="toggleTheme" class="btn btn-outline-light m-2">Tema</button>
-
-
 </nav>
 
 <div class="container">
-
     <div class="mt-2">
 
         <div class="row justify-content-center">
@@ -98,68 +55,54 @@
             </div>
         </div>
 
-        <!-- quadrado do filtro -->
-        <!-- "SIIIIIIIIIIIIIIIIII" - Cristiano Ronaldo -->
         <div class="row justify-content-center">
             <h6 class=" mt-1 col-12 col-md-12 col-lg-12 bg-azul border rounded shadow p-2 text-white fw-bold">
                 Filtros</h6>
             <div class="col-12 col-md-12 col-lg-12 bg-white border rounded shadow p-4">
-                <form>
+                <!-- Form agora tem id para JS -->
+                <form id="agendaForm">
                     <div class="row g-2">
                         <div class="col">
                             <div class="row g-2 align-items-end">
                                 <div class="col">
                                     <label for="sala" class="form-label fw-bold">Sala</label>
-                                    <select class="form-select form-select-sm" id="sala">
-                                        <option value="">Selecione</option>
-                                        <option value="agendado">Agendado</option>
-                                        <option value="livre">Livre</option>
-                                        <option value="ocupado">Ocupado</option>
+                                    <select class="form-select form-select-sm" id="sala" required>
+                                        <option value="">Selecione uma sala</option>
+                                        <!-- preenchido dinamicamente -->
                                     </select>
                                 </div>
 
                                 <div class="col">
-                                    <label for="" class="form-label fw-bold"></label>
-<!--                                    COLOCAR ID-->
-                                    <select class="form-select form-select-sm" id="">
+                                    <label for="bloco" class="form-label fw-bold">Bloco</label>
+                                    <select class="form-select form-select-sm" id="bloco">
                                         <option value="">Selecione</option>
-                                        <option value="agendado">Agendado</option>
-                                        <option value="livre">Livre</option>
-                                        <option value="ocupado">Ocupado</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
                                     </select>
                                 </div>
+
                                 <div class="col-3">
                                     <label for="de" class="form-label fw-bold ">De</label>
-                                    <input type="time" class="form-control form-control-sm "
-                                           id="de">
-
+                                    <input type="time" class="form-control form-control-sm " id="de" required>
                                 </div>
 
                                 <div class="col-3">
                                     <label for="ate" class="form-label fw-bold">Até</label>
-                                    <input type="time" class="form-control form-control-sm "
-                                           id="ate">
+                                    <input type="time" class="form-control form-control-sm " id="ate" required>
                                 </div>
                             </div>
 
-
-
-
-
-
-
                         <div class="row g-2 ">
                             <div class="col">
-                                <label for="dias" class="form-label fw-bold">Dias</label>
-                                <input type="date" class="form-control form-control-sm w-25" id="dias" name="dias">
+                                <label for="dias" class="form-label fw-bold">Dia</label>
+                                <input type="date" class="form-control form-control-sm w-25" id="dias" name="dias" required>
                             </div>
-
 
                             <div class="d-flex justify-content-end gap-2 mt-3">
-                                <button type="button" class="btn cinza btn-sm">Cancelar</button>
-                                <button type="submit" class="btn bg-azul btn-sm">Solicitar</button>
+                                <button type="button" id="cancelBtn" class="btn cinza btn-sm">Cancelar</button>
+                                <button type="submit" id="submitBtn" class="btn bg-azul btn-sm">Solicitar</button>
                             </div>
-
 
                         </div>
                     </div>
@@ -168,16 +111,36 @@
             </div>
         </div>
 
-
-
+        <!-- Lista de agendamentos -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5>Agendamentos</h5>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="agendasTable">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>De</th>
+                                <th>Até</th>
+                                <th>Sala</th>
+                                <th>Bloco</th>
+                                <th>Usuário</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="agendasBody">
+                            <!-- preenchido por JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
 </div>
 </div>
-
 
 </body>
 
 <script src="./script-agendamento.js"></script>
-
 
 </html>

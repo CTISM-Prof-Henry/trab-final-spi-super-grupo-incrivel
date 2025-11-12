@@ -1,46 +1,215 @@
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('toggleTheme').addEventListener('click', function() {
-        document.body.classList.toggle('bg-dark');
-        document.body.classList.toggle('text-white');
+    // toggle tema existente
+    const toggle = document.getElementById('toggleTheme');
+    if (toggle) {
+        toggle.addEventListener('click', function() {
+            document.body.classList.toggle('bg-dark');
+            document.body.classList.toggle('text-white');
 
-        // Navbar
-        const navbar = document.querySelector('.navbar');
-        navbar.classList.toggle('bg-dark');
-        navbar.classList.toggle('navbar-dark');
-        navbar.classList.toggle('bg-azul');
-        if (navbar.classList.contains('bg-dark')) {
-            navbar.style.borderBottom = '2px solid #fff';
-        } else {
-            navbar.style.borderBottom = '';
-        }
-
-        // Quadrados
-        document.querySelectorAll('.bg-white').forEach(function(el) {
-            el.classList.toggle('bg-dark');
-            el.classList.toggle('text-white');
-            el.classList.toggle('bg-white');
-        });
-
-        // Títulos com bg-azul
-        document.querySelectorAll('.bg-azul, .bg-dark.filtro-azul').forEach(function(el) {
-            if (document.body.classList.contains('bg-dark')) {
-                el.classList.remove('bg-azul');
-                el.classList.add('bg-dark', 'filtro-azul');
+            // Navbar
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.toggle('bg-dark');
+            navbar.classList.toggle('navbar-dark');
+            navbar.classList.toggle('bg-azul');
+            if (navbar.classList.contains('bg-dark')) {
+                navbar.style.borderBottom = '2px solid #fff';
             } else {
-                el.classList.remove('bg-dark', 'filtro-azul');
-                el.classList.add('bg-azul');
+                navbar.style.borderBottom = '';
+            }
+
+            // Quadrados
+            document.querySelectorAll('.bg-white').forEach(function(el) {
+                el.classList.toggle('bg-dark');
+                el.classList.toggle('text-white');
+                el.classList.toggle('bg-white');
+            });
+
+            // Títulos com bg-azul
+            document.querySelectorAll('.bg-azul, .bg-dark.filtro-azul').forEach(function(el) {
+                if (document.body.classList.contains('bg-dark')) {
+                    el.classList.remove('bg-azul');
+                    el.classList.add('bg-dark', 'filtro-azul');
+                } else {
+                    el.classList.remove('bg-dark', 'filtro-azul');
+                    el.classList.add('bg-azul');
+                }
+            });
+
+            // Tabela
+            document.querySelectorAll('.table').forEach(function(el) {
+                el.classList.toggle('table-dark');
+            });
+
+            // Links
+            document.querySelectorAll('.tiraEfeitoLink').forEach(function(el){
+                el.classList.toggle('text-dark');
+                el.classList.toggle('text-white');
+            });
+        });
+    }
+
+    // === integração com backend ===
+    const salaSelect = document.getElementById('sala');
+    const blocoSelect = document.getElementById('bloco');
+    const form = document.getElementById('agendaForm');
+    const agendasBody = document.getElementById('agendasBody');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    // lê usuário salvo (caso tenha login frontend)
+    const savedUser = sessionStorage.getItem('username') || localStorage.getItem('username') || 'anônimo';
+    const savedUserId = sessionStorage.getItem('userId') || localStorage.getItem('userId') || (Number.isInteger(Number(savedUser)) ? Number(savedUser) : null);
+
+    const APP_BASE = '/sistema_agendamento_poli'; // ajuste conforme application.properties
+
+    // carrega opções de salas (/salas/listar)
+    async function carregarSalas() {
+        if (!salaSelect) return;
+        try {
+            const resp = await fetch('/salas/listar');
+            if (!resp.ok) throw new Error('Falha ao listar salas');
+            const salas = await resp.json();
+            salaSelect.innerHTML = '<option value="">Selecione uma sala</option>';
+            salas.forEach(s => {
+                const id = s.id ?? s.codigo ?? s.nome;
+                const nome = s.nome ?? s.codigo ?? `Sala ${id}`;
+                const opt = document.createElement('option');
+                opt.value = id;
+                opt.textContent = nome;
+                salaSelect.appendChild(opt);
+            });
+        } catch (err) {
+            console.error('Erro ao carregar salas:', err);
+        }
+    }
+
+    // carrega agendamentos (/agendamento/listar)
+    async function carregarAgendamentos() {
+        if (!agendasBody) return;
+        try {
+            const resp = await fetch(`${APP_BASE}/agendamento/listar`);
+            if (!resp.ok) throw new Error('Falha ao listar agendamentos');
+            const agendamentos = await resp.json();
+            agendasBody.innerHTML = '';
+            agendamentos.forEach(a => {
+                const tr = document.createElement('tr');
+                const data = formatarData(a.data || a.dia || a.dataAgenda);
+                const de = a.horarioInicio ?? a.horaInicio ?? a.de ?? a.inicio ?? '';
+                const ate = a.horarioFim ?? a.horaFim ?? a.ate ?? a.fim ?? '';
+                const salaNome = (a.sala && (a.sala.nome || a.sala.codigo)) || a.sala || a.salaId || '';
+                const bloco = a.bloco ?? a.localBloco ?? '';
+                const usuario = a.usuarioNome ?? a.usuario ?? a.criadoPor ?? '';
+                tr.innerHTML = `
+                    <td>${data}</td>
+                    <td>${escapeHtml(de)}</td>
+                    <td>${escapeHtml(ate)}</td>
+                    <td>${escapeHtml(salaNome)}</td>
+                    <td>${escapeHtml(bloco)}</td>
+                    <td>${escapeHtml(usuario)}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger btn-delete" data-id="${a.id}">Excluir</button>
+                    </td>
+                `;
+                agendasBody.appendChild(tr);
+            });
+
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const id = btn.dataset.id;
+                    if (!confirm('Deseja realmente excluir este agendamento?')) return;
+                    try {
+                        const resp = await fetch(`${APP_BASE}/agendamento/${id}`, { method: 'DELETE' });
+                        if (!resp.ok) throw new Error('Falha ao deletar');
+                        await carregarAgendamentos();
+                    } catch (err) {
+                        console.error('Erro ao deletar agendamento:', err);
+                        alert('Erro ao deletar agendamento');
+                    }
+                });
+            });
+
+        } catch (err) {
+            console.error('Erro ao carregar agendamentos:', err);
+        }
+    }
+
+    // envio do formulário -> cria agendamento (POST /agendamento)
+    if (form) {
+        form.addEventListener('submit', async (ev) => {
+            ev.preventDefault();
+            const salaValue = salaSelect?.value || '';
+            const blocoValue = blocoSelect?.value || '';
+            const dataValue = document.getElementById('dias')?.value || '';
+            const deValue = document.getElementById('de')?.value || '';
+            const ateValue = document.getElementById('ate')?.value || '';
+
+            if (!salaValue || !dataValue || !deValue || !ateValue) {
+                alert('Preencha sala, dia, horário de início e fim.');
+                return;
+            }
+
+            if (!savedUserId) {
+                alert('ID do usuário não disponível. Faça login para prosseguir.');
+                return;
+            }
+
+            const dto = {
+                salaId: Number(salaValue),
+                usuarioId: Number(savedUserId),
+                data: dataValue,               // "YYYY-MM-DD" -> LocalDate
+                horarioInicio: deValue,        // "HH:mm" -> LocalTime
+                horarioFim: ateValue,          // "HH:mm" -> LocalTime
+                status: 'PENDENTE'
+            };
+
+            try {
+                const resp = await fetch(`${APP_BASE}/agendamento`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dto)
+                });
+                if (!resp.ok) {
+                    const text = await resp.text();
+                    throw new Error(text || 'Erro ao criar agendamento');
+                }
+                form.reset();
+                await carregarAgendamentos();
+                alert('Agendamento criado com sucesso.');
+            } catch (err) {
+                console.error('Erro ao criar agendamento:', err);
+                alert('Erro ao criar agendamento. Verifique console.');
             }
         });
+    }
 
-        // Tabela
-        document.querySelectorAll('.table').forEach(function(el) {
-            el.classList.toggle('table-dark');
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+            form && form.reset();
         });
+    }
 
-        // Links
-        document.querySelectorAll('.tiraEfeitoLink').forEach(function(el){
-            el.classList.toggle('text-dark');
-            el.classList.toggle('text-white');
-        });
-    });
+    // utilitários
+    function formatarData(dateStr) {
+        if (!dateStr) return '';
+        try {
+            const d = new Date(dateStr);
+            if (isNaN(d)) return dateStr;
+            return d.toLocaleDateString('pt-BR');
+        } catch {
+            return dateStr;
+        }
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        return String(text)
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#039;');
+    }
+
+    // inicializa
+    carregarSalas();
+    carregarAgendamentos();
 });
